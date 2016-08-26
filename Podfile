@@ -7,6 +7,8 @@ target 'Up' do
 
   # Pods for Up
 pod 'Firebase'
+pod 'Firebase/Database'
+pod 'Firebase/Auth'
 
   target 'UpTests' do
     inherit! :search_paths

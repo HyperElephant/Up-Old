@@ -18,7 +18,13 @@
 		7404C0651D1F5F3E004BD95F /* UpUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0641D1F5F3E004BD95F /* UpUITests.swift */; };
 		7404C0731D1F6031004BD95F /* UpCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */; };
 		7404C0751D1F7148004BD95F /* UpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0741D1F7148004BD95F /* UpNavigationController.swift */; };
+		741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */; };
 		74950BAF1D344ECF000EAB79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */; };
+		74C73BA11D6FC2B300E011AD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C73BA01D6FC2B300E011AD /* Constants.swift */; };
+		74C73BA51D6FCE5A00E011AD /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */; };
+		74C73BA71D6FDF3900E011AD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C73BA61D6FDF3900E011AD /* Helpers.swift */; };
+		74D9CB451D6D404B00AB48A6 /* Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D9CB441D6D404B00AB48A6 /* Up.swift */; };
+		74D9CB471D6E6DC600AB48A6 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D9CB461D6E6DC600AB48A6 /* Friend.swift */; };
 		DBF968C31BD19C6CBCA2B0A2 /* Pods_Up.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2E4D5938F8FC093062C9200 /* Pods_Up.framework */; };
 		F5A84B2C2A819DA6740E2B7F /* Pods_UpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45513B2F39F15E903F868B87 /* Pods_UpTests.framework */; };
 /* End PBXBuildFile section */
@@ -64,7 +70,13 @@
 		7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpCollectionViewCell.swift; sourceTree = "<group>"; };
 		7404C0741D1F7148004BD95F /* UpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpNavigationController.swift; sourceTree = "<group>"; };
 		7404C0761D1F75DC004BD95F /* Up.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Up.entitlements; sourceTree = "<group>"; };
+		741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpViewController.swift; sourceTree = "<group>"; };
 		74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		74C73BA01D6FC2B300E011AD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		74C73BA61D6FDF3900E011AD /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		74D9CB441D6D404B00AB48A6 /* Up.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Up.swift; sourceTree = "<group>"; };
+		74D9CB461D6E6DC600AB48A6 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		98A43986E2A3A99464574978 /* Pods-UpUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UpUITests/Pods-UpUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2E4D5938F8FC093062C9200 /* Pods_Up.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Up.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7B3EC91C9EAE8B5A8B28E9E /* Pods-Up.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Up.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Up/Pods-Up.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,10 +161,16 @@
 			children = (
 				7404C0761D1F75DC004BD95F /* Up.entitlements */,
 				7404C0411D1F5F3D004BD95F /* AppDelegate.swift */,
+				741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */,
 				7404C0431D1F5F3D004BD95F /* ViewController.swift */,
-				7404C0451D1F5F3D004BD95F /* Main.storyboard */,
+				74C73BA01D6FC2B300E011AD /* Constants.swift */,
 				7404C0741D1F7148004BD95F /* UpNavigationController.swift */,
 				7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */,
+				74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */,
+				74C73BA61D6FDF3900E011AD /* Helpers.swift */,
+				74D9CB441D6D404B00AB48A6 /* Up.swift */,
+				74D9CB461D6E6DC600AB48A6 /* Friend.swift */,
+				7404C0451D1F5F3D004BD95F /* Main.storyboard */,
 				7404C04B1D1F5F3D004BD95F /* Assets.xcassets */,
 				7404C04D1D1F5F3D004BD95F /* LaunchScreen.storyboard */,
 				7404C0501D1F5F3D004BD95F /* Info.plist */,
@@ -450,9 +468,15 @@
 			files = (
 				7404C0751D1F7148004BD95F /* UpNavigationController.swift in Sources */,
 				7404C0441D1F5F3D004BD95F /* ViewController.swift in Sources */,
+				74D9CB451D6D404B00AB48A6 /* Up.swift in Sources */,
 				7404C0731D1F6031004BD95F /* UpCollectionViewCell.swift in Sources */,
+				74C73BA71D6FDF3900E011AD /* Helpers.swift in Sources */,
 				7404C04A1D1F5F3D004BD95F /* Up.xcdatamodeld in Sources */,
 				7404C0421D1F5F3D004BD95F /* AppDelegate.swift in Sources */,
+				741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */,
+				74D9CB471D6E6DC600AB48A6 /* Friend.swift in Sources */,
+				74C73BA51D6FCE5A00E011AD /* LogInViewController.swift in Sources */,
+				74C73BA11D6FC2B300E011AD /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +621,48 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Up/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AdSupport\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"GoogleInterchangeUtilities\"",
+					"-framework",
+					"\"GoogleNetworkingUtilities\"",
+					"-framework",
+					"\"GoogleParsingUtilities\"",
+					"-framework",
+					"\"GoogleSymbolUtilities\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.Up;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -612,6 +678,48 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Up/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AdSupport\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"GoogleInterchangeUtilities\"",
+					"-framework",
+					"\"GoogleNetworkingUtilities\"",
+					"-framework",
+					"\"GoogleParsingUtilities\"",
+					"-framework",
+					"\"GoogleSymbolUtilities\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.Up;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

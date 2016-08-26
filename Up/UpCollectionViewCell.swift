@@ -11,7 +11,7 @@ import UIKit
 class UpCollectionViewCell: UICollectionViewCell {
     
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet var label: UILabel!
     var limbo = false
     
     func showProgress() -> Bool{

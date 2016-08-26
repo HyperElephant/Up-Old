@@ -7,18 +7,35 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    let reuseIdentifier = "cell";
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+    let reuseIdentifier = "upCell"
+    var ups: [FIRDataSnapshot]! = []
     
-    var side = CGFloat(0)
 
+    var side = CGFloat(0)
+    var ref: FIRDatabaseReference!
+    private var _refHandle: FIRDatabaseHandle!
+
+    @IBOutlet weak var upCollectionView: UICollectionView!
+    
+    @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
+
+        upCollectionView.reloadData()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.upCollectionView?.delegate = self
+        self.upCollectionView?.dataSource = self
+        
         side = (self.view.frame.width / 2) - CGFloat(30)
+        
+        configureDatabase()
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -32,7 +49,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     // tell the collection view how many cells to make
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.items.count
+        return self.ups.count
     }
     
     // make a cell for each cell index path
@@ -40,8 +57,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UpCollectionViewCell
+        let up = Up(snapshot: ups[indexPath.row])
+
+        //cell.label!.text = "here"
+        cell.label!.text = up.title
+
+        /*
+        let upsSnapshot: FIRDataSnapshot! = self.ups[indexPath.item]
+        let up = upsSnapshot.value as! Dictionary<String, String>
+        let name = up["name"] as String!
         
-        cell.label.text = self.items[indexPath.item]
+        cell.label.text = name
+         */
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
         cell.layer.borderWidth = 1
@@ -56,31 +83,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
         
-        /*
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! UpCollectionViewCell
-        
-        if(cell.limbo == false){
-            cell.limbo = true
-            cell.showProgress()
-        } else {
-            cell.limbo = false
-            cell.layer.sublayers?.removeLast()
-
-        }
-*/
-        
-        
-        /*
-        UIView.animateWithDuration(4, delay: 0, options: UIViewAnimationOptions.Autoreverse, animations: { () -> Void in
-            
-            cell.backgroundColor = UIColor(red: 178/255, green: 47/255, blue: 152/255, alpha: 1)
-            
-            }, completion: {finished in
-                print("sent");
-                
-        })
-*/
-        
     }
     
     
@@ -89,8 +91,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return CGSizeMake(side, side);
     }
     
+    func configureDatabase() {
+        ref = FIRDatabase.database().reference()
+        // Listen for new messages in the Firebase database
+        _refHandle = self.ref.child("ups").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            self.ups.append(snapshot)
+            self.upCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
+        })
+    }
+
     
-    
-    
+    func getFriendFromData(friends: FIRDataSnapshot) -> [Friend]{
+        var newFriends = [Friend]()
+        for child in friends.children{
+            let username = child.name! 
+            let newFriend = Friend(username: username)
+            newFriends.append(newFriend)
+        }
+        
+        return newFriends
+    }
+
 }
+    
 
