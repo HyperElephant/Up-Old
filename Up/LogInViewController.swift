@@ -39,10 +39,12 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("hello")
         if FIRAuth.auth()?.currentUser != nil {
             self.performSegueWithIdentifier("logInSegue", sender: nil)
         }
         ref = FIRDatabase.database().reference()
+        print(ref)
         // Do any additional setup after loading the view.
     }
 

@@ -39,5 +39,21 @@ class Up: NSObject {
         
         self.friends.append(friend)
     }
+    
+    func upload(){
+        let ref = FIRDatabase.database().reference()
+        let key = ref.child("ups").childByAutoId().key
+        var users = [String: Bool]()
+        for friend in friends{
+            users[friend.username] = true
+        }
+        let newUp = ["author": self.author,
+                    "title": self.title,
+                    "description": self.detail,
+                    "users": users]
+        let update = ["/ups/\(key)": newUp]
+        ref.updateChildValues(update)
+        
+    }
 
 }

@@ -15,16 +15,17 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
     
-    var addedUp: Up!
-    
     var ref: FIRDatabaseReference!
     
     var friends: [Friend] = []
     var addedFriends: [Friend] = []
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
-        let newUp = Up(author: "Test", title: titleTextField.text!, detail: descriptionTextField.text!,friends: addedFriends)
-        addedUp = newUp;
+        
+        let user = FIRAuth.auth()?.currentUser
+        
+        let newUp = Up(author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!,friends: addedFriends)
+        newUp.upload()
         print("added")
     }
     

@@ -23,7 +23,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
 
-        upCollectionView.reloadData()
+        //upCollectionView.reloadData()
         
     }
     
