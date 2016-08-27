@@ -16,17 +16,17 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var descriptionTextField: UITextField!
     
     var ref: FIRDatabaseReference!
-    
-    var friends: [Friend] = []
+    var friends: [FIRDataSnapshot]! = []
+    var added: [Bool] = []
+    private var _refHandle: FIRDatabaseHandle!
     var addedFriends: [Friend] = []
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
         
         let user = FIRAuth.auth()?.currentUser
         
-        let newUp = Up(author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!,friends: addedFriends)
+        let newUp = Up(author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
         newUp.upload()
-        print("added")
     }
     
     
@@ -36,9 +36,8 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         self.friendsTableView?.dataSource = self
         self.friendsTableView?.delegate = self
         
-        addTestFriends()
+        configureFriends()
         
-
         // Do any additional setup after loading the view.
     }
 
@@ -58,8 +57,9 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let friend = Friend(snapshot: friends[indexPath.row])
         
-        cell.textLabel!.text = friends[indexPath.row].username
+        cell.textLabel!.text = friend.username
         return cell
     }
     
@@ -70,7 +70,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
                 removeFriendFromList(friends[indexPath.row])
             } else {
                 cell.accessoryType = .Checkmark
-                addedFriends.append(friends[indexPath.row])
+                addedFriends.append(Friend(snapshot: friends[indexPath.row]))
             }
         }
     }
@@ -86,7 +86,8 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         //dest.ups.append(addedUp)
     }
     
-    func removeFriendFromList(unFriend: Friend){
+    func removeFriendFromList(unFriendData: FIRDataSnapshot){
+        let unFriend = Friend(snapshot: unFriendData)
         for x in 0...addedFriends.count{
             if addedFriends[x] == unFriend{
                 addedFriends.removeAtIndex(x)
@@ -94,6 +95,18 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func configureFriends(){
+        ref = FIRDatabase.database().reference()
+        print("here")
+        // Listen for new messages in the Firebase database
+        _refHandle = self.ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            print("there")
+            self.friends.append(snapshot)
+            self.friendsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.friends.count-1, inSection: 0)], withRowAnimation: .Automatic)})
+        
+    }
+    
+    /*
     func addTestFriends(){
         var newFriend = Friend(username: "Fred")
         friends.append(newFriend)
@@ -101,6 +114,8 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         friends.append(newFriend)
         
     }
+    */
+    
     
 
 }

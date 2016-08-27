@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Friend: NSObject {
     
@@ -14,5 +15,13 @@ class Friend: NSObject {
 
     init(username:String){
         self.username = username
+    }
+    
+    convenience init(snapshot:FIRDataSnapshot!) {
+        //print("Snapshot", snapshot)
+        let newUsername = snapshot.value![Constants.FriendFields.username] as! String!
+        
+        self.init(username: newUsername)
+        
     }
 }

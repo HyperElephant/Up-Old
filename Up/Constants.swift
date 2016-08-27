@@ -14,4 +14,8 @@ struct Constants {
         static let description = "description"
         static let users = "users"
     }
+    
+    struct FriendFields {
+        static let username = "username"
+    }
 }

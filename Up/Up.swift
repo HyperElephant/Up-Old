@@ -29,7 +29,6 @@ class Up: NSObject {
         let newAuthor = snapshot.value![Constants.UpFields.author] as! String!
         let newTitle = snapshot.value![Constants.UpFields.title] as! String!
         let newDetail = snapshot.value![Constants.UpFields.description] as! String!
-        print(snapshot.value![Constants.UpFields.users])
         
         self.init(author: newAuthor, title:newTitle, detail:newDetail, friends:[Friend]())
         
