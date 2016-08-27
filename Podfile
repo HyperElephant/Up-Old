@@ -9,6 +9,7 @@ target 'Up' do
 pod 'Firebase'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'Firebase/Messaging'
 
   target 'UpTests' do
     inherit! :search_paths

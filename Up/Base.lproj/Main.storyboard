@@ -240,6 +240,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JkM-4q-Hhc">
                                 <rect key="frame" x="220" y="189" width="160" height="30"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SqS-Gn-kil"/>
                                     <constraint firstAttribute="width" constant="160" id="fuy-WJ-gma"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

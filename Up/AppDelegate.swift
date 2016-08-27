@@ -21,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Use Firebase library to configure APIs
         FIRApp.configure()
+        let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+        
         return true
     }
 
@@ -32,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        FIRMessaging.messaging().disconnect()
+        print("Disconnected from FCM.")
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -107,6 +115,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
                 abort()
+            }
+        }
+    }
+    
+    // FCM Functions
+    func tokenRefreshNotification(notification: NSNotification) {
+        let refreshedToken = FIRInstanceID.instanceID().token()!
+        print("InstanceID token: \(refreshedToken)")
+        
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        connectToFcm()
+    }
+    
+    func connectToFcm() {
+        FIRMessaging.messaging().connectWithCompletion { (error) in
+            if (error != nil) {
+                print("Unable to connect with FCM. \(error)")
+            } else {
+                print("Connected to FCM.")
             }
         }
     }
