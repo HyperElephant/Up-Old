@@ -70,11 +70,6 @@ class LogInViewController: UIViewController {
 
             
         }else{
-            
-        
-        emailTextField.text = "test@test.com"
-        passwordTextField.text = "testing"
-        
             if let email = self.emailTextField.text, password = self.passwordTextField.text {
                     // [START headless_email_auth]
                 

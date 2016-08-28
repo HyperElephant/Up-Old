@@ -81,8 +81,10 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
     //Helper functions
     func configureIncomingDatabase() {
         ref = FIRDatabase.database().reference()
+        let username = FIRAuth.auth()?.currentUser?.displayName
+        print(username)
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("sent").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        _refHandle = self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.incoming.append(snapshot)
             self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
         })

@@ -22,6 +22,7 @@
 		7479CD9D1D72548A0005F3E2 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9C1D72548A0005F3E2 /* InboxViewController.swift */; };
 		7479CD9F1D725AA50005F3E2 /* InboxCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InboxCollectionViewCell.swift */; };
 		7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */; };
+		7479CDA31D7398F50005F3E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */; };
 		74950BAF1D344ECF000EAB79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */; };
 		74C73BA11D6FC2B300E011AD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C73BA01D6FC2B300E011AD /* Constants.swift */; };
 		74C73BA51D6FCE5A00E011AD /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */; };
@@ -77,6 +78,7 @@
 		7479CD9C1D72548A0005F3E2 /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		7479CD9E1D725AA50005F3E2 /* InboxCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxCollectionViewCell.swift; sourceTree = "<group>"; };
 		7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74C73BA01D6FC2B300E011AD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */,
 				7479CD9E1D725AA50005F3E2 /* InboxCollectionViewCell.swift */,
 				74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */,
+				7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */,
 				74C73BA61D6FDF3900E011AD /* Helpers.swift */,
 				74D9CB441D6D404B00AB48A6 /* Up.swift */,
 				74D9CB461D6E6DC600AB48A6 /* Friend.swift */,
@@ -483,6 +486,7 @@
 				7404C04A1D1F5F3D004BD95F /* Up.xcdatamodeld in Sources */,
 				7404C0421D1F5F3D004BD95F /* AppDelegate.swift in Sources */,
 				7479CD9D1D72548A0005F3E2 /* InboxViewController.swift in Sources */,
+				7479CDA31D7398F50005F3E2 /* SettingsViewController.swift in Sources */,
 				741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */,
 				74D9CB471D6E6DC600AB48A6 /* Friend.swift in Sources */,
 				7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */,
