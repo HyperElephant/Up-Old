@@ -14,6 +14,8 @@ class DatabaseHelper: NSObject {
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
     
+    
+    //DOES NOT WORK
     func getUpSnapshot(upID: String) -> FIRDataSnapshot? {
         print(upID)
         var data = FIRDataSnapshot()

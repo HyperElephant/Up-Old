@@ -103,7 +103,7 @@ class LogInViewController: UIViewController {
         ref = FIRDatabase.database().reference()
         FIRAuth.auth()?.addAuthStateDidChangeListener { auth, user in
             if user != nil {
-                // User is signed in.
+                self.performSegueWithIdentifier("logInSegue", sender: nil)
             } else {
                 // No user is signed in.
             }

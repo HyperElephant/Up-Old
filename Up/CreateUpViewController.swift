@@ -21,8 +21,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     private var _refHandle: FIRDatabaseHandle!
     var addedFriends: [Friend] = []
     
-    @IBAction func doneButtonPressed(sender: AnyObject) {
-        
+    @IBAction func addButtonPressed(sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
         
         let newUp = Up(id: "", author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
