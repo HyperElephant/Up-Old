@@ -10,8 +10,10 @@ import UIKit
 
 class UpCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var friendsLabel: UILabel!
     
-    @IBOutlet var label: UILabel!
+    
     var limbo = false
     
     func showProgress() -> Bool{

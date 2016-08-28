@@ -25,7 +25,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
         let user = FIRAuth.auth()?.currentUser
         
-        let newUp = Up(author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
+        let newUp = Up(id: "", author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
         newUp.upload()
     }
     

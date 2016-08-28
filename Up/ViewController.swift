@@ -14,7 +14,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let reuseIdentifier = "upCell"
     var ups: [FIRDataSnapshot]! = []
     
-
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
@@ -58,17 +57,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UpCollectionViewCell
         let up = Up(snapshot: ups[indexPath.row])
-
-        //cell.label!.text = "here"
-        cell.label!.text = up.title
-
-        /*
-        let upsSnapshot: FIRDataSnapshot! = self.ups[indexPath.item]
-        let up = upsSnapshot.value as! Dictionary<String, String>
-        let name = up["name"] as String!
         
-        cell.label.text = name
-         */
+        let friendString = makeFriendsString(up!.friends)
+
+        cell.titleLabel!.text = up!.title
+        cell.friendsLabel!.text = friendString
+
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
         cell.layer.borderWidth = 1
@@ -81,6 +75,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // handle tap events
+        let up = Up(snapshot: ups[indexPath.row])
+        up!.send()
+        
         print("You selected cell #\(indexPath.item)!")
         
     }
@@ -90,6 +87,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     {        
         return CGSizeMake(side, side);
     }
+    
+    
+    //Helper Functions
     
     func configureDatabase() {
         ref = FIRDatabase.database().reference()
@@ -110,6 +110,46 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         return newFriends
+    }
+    
+    func makeFriendsString(friends: [Friend]) -> String {
+        var friendString = "With "
+        
+        if friends.count == 1 {
+            friendString += friends[0].username
+        } else if friends.count == 2 {
+            friendString += friends[0].username
+            friendString += " and "
+            friendString += friends[1].username
+        } else if friends.count == 0{
+            friendString = ""
+        }else if friends.count < 4{
+            
+            for x in 0...friends.count{
+                friendString += friends[x].username
+                if x < friends.count{
+                    friendString += ", "
+                } else {
+                    friendString += " and "
+                }
+                
+            }
+        } else {
+            for x in 0...friends.count{
+                friendString += friends[x].username
+                if x < friends.count{
+                    friendString += ", "
+                } else if x == 3{
+                    friendString += " and "
+                }
+                
+            }
+            
+            friendString += "and \(friends.count) others"
+        }
+        
+        
+        return friendString
     }
 
 }

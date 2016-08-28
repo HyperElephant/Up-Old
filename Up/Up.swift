@@ -11,26 +11,61 @@ import Firebase
 
 class Up: NSObject {
     
+    var id: String
     var author: String
     var title: String
     var detail: String
     var friends: [Friend]
 
-    init(author: String, title:String, detail:String, friends:[Friend]){
-        //self.uid = uid
+    init(id: String, author: String, title:String, detail:String, friends:[Friend]){
+        self.id = id
         self.author = author
         self.title = title
         self.detail = detail
         self.friends = friends
     }
     
-    convenience init(snapshot:FIRDataSnapshot!) {
-        //print("Snapshot", snapshot)
-        let newAuthor = snapshot.value![Constants.UpFields.author] as! String!
-        let newTitle = snapshot.value![Constants.UpFields.title] as! String!
-        let newDetail = snapshot.value![Constants.UpFields.description] as! String!
+    convenience init?(snapshot:FIRDataSnapshot!) {
+        //print("Up snapshot", snapshot)
+        var newID = ""
+        var newAuthor = ""
+        var newTitle = ""
+        var newDetail = ""
+        var newFriends = [Friend]()
         
-        self.init(author: newAuthor, title:newTitle, detail:newDetail, friends:[Friend]())
+        if let snapID = snapshot.key as String! {
+            newID = snapID
+        }else {
+            return nil
+        }
+        
+        if let snapAuthor = snapshot.value![Constants.UpFields.author] as! String! {
+            newAuthor = snapAuthor
+        } else {
+            return nil
+        }
+        
+        if let snapTitle = snapshot.value![Constants.UpFields.title] as! String! {
+            newTitle = snapTitle
+        } else {
+            return nil
+        }
+        
+        if let snapDetail = snapshot.value![Constants.UpFields.description] as! String! {
+            newDetail = snapDetail
+        } else {
+            return nil
+        }
+
+        if let newFriendsData = snapshot.value![Constants.UpFields.users] as! [String:Bool]! {
+        
+            for (key, _) in newFriendsData{
+                newFriends.append(Friend(username: key))
+            }
+            
+        }
+        
+        self.init(id: newID, author: newAuthor, title:newTitle, detail:newDetail, friends: newFriends)
         
     }
     
@@ -42,17 +77,34 @@ class Up: NSObject {
     func upload(){
         let ref = FIRDatabase.database().reference()
         let key = ref.child("ups").childByAutoId().key
+        self.id = key
         var users = [String: Bool]()
         for friend in friends{
             users[friend.username] = true
         }
-        let newUp = ["author": self.author,
-                    "title": self.title,
-                    "description": self.detail,
-                    "users": users]
+        let newUp = [Constants.UpFields.author: self.author,
+                    Constants.UpFields.title: self.title,
+                    Constants.UpFields.description: self.detail,
+                    Constants.UpFields.users: users]
         let update = ["/ups/\(key)": newUp]
         ref.updateChildValues(update)
+    }
+    
+    func send(){
+        let ref = FIRDatabase.database().reference()
+        
+        for friend in friends {
+            let key = ref.child("sent").childByAutoId().key
+            let newSent = [Constants.SendFields.username: friend.username,
+                           Constants.SendFields.upID: self.id]
+            let update = ["/sent/\(key)": newSent]
+            ref.updateChildValues(update)
+        
+        }
+        
         
     }
+    
+    
 
 }

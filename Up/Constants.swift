@@ -18,4 +18,9 @@ struct Constants {
     struct FriendFields {
         static let username = "username"
     }
+    
+    struct SendFields {
+        static let username = "username"
+        static let upID = "upID"
+    }
 }
