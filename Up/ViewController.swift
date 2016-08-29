@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     let reuseIdentifier = "upCell"
     var ups: [FIRDataSnapshot]! = []
@@ -22,7 +22,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
 
-        //upCollectionView.reloadData()
         
     }
     
@@ -35,6 +34,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         side = (self.view.frame.width / 2) - CGFloat(30)
         
         configureDatabase()
+        
+        let longPress = UILongPressGestureRecognizer(target:self, action: #selector(ViewController.handleLongPress(_:)))
+        longPress.minimumPressDuration = 0.5
+        longPress.delaysTouchesBegan = true
+        longPress.delegate = self
+        self.upCollectionView.addGestureRecognizer(longPress)
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -93,8 +98,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func configureDatabase() {
         ref = FIRDatabase.database().reference()
+        let username = FIRAuth.auth()?.currentUser?.displayName
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("ups").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        _refHandle = self.ref.child(Constants.UpFields.ups).queryOrderedByChild(Constants.UpFields.author).queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.ups.append(snapshot)
             self.upCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
         })
@@ -150,6 +156,26 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         
         return friendString
+    }
+    
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        /*
+        if gestureReconizer.state != UIGestureRecognizerState.Ended {
+            return
+        }
+ */
+        
+        let p = gestureReconizer.locationInView(self.upCollectionView)
+        let indexPath = self.upCollectionView.indexPathForItemAtPoint(p)
+        
+        if let index = indexPath {
+            let cell = self.upCollectionView.cellForItemAtIndexPath(index) as! UpCollectionViewCell
+            // do stuff with your cell, for example print the indexPath
+            cell.wobble()
+            print(index.row)
+        } else {
+            print("Could not find index path")
+        }
     }
 
 }

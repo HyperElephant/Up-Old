@@ -9,6 +9,7 @@
 struct Constants {
     
     struct UpFields {
+        static let ups = "ups"
         static let title = "title"
         static let author = "author"
         static let description = "description"

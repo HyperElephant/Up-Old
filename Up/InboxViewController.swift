@@ -53,6 +53,8 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         let up = Up(snapshot: ups[indexPath.row])
         
+        cell.sentKey = incoming[indexPath.row].key
+        
         cell.titleLabel!.text = up?.title
         
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
@@ -82,11 +84,19 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
     func configureIncomingDatabase() {
         ref = FIRDatabase.database().reference()
         let username = FIRAuth.auth()?.currentUser?.displayName
-        print(username)
         // Listen for new messages in the Firebase database
         _refHandle = self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.incoming.append(snapshot)
             self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
+        })
+        
+        self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+            print(snapshot)
+            let index = self.indexOfIncoming(snapshot)
+            self.ups.removeAtIndex(index)
+            self.incoming.removeAtIndex(index)
+            //self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
+            self.inboxCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
     
@@ -98,7 +108,16 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
         })
     }
 
-    
+    func indexOfIncoming(snapshot: FIRDataSnapshot) -> Int {
+        var index = 0
+        for  item in self.incoming {
+            if (snapshot.key == item.key) {
+                return index
+            }
+            index += 1
+        }
+        return -1
+    }
 
     /*
     // MARK: - Navigation

@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import Firebase
 
 class InboxCollectionViewCell: UICollectionViewCell {
+    
+    var sentKey = String()
+    var ref = FIRDatabaseReference()
     
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func yesButtonPressed(sender: AnyObject) {
+        ref = FIRDatabase.database().reference().child("sent")
+        ref.child(sentKey).removeValue()
         print("yes")
+        
     }
     @IBAction func noButtonPressed(sender: AnyObject) {
         print("no")

@@ -13,6 +13,11 @@ class UpCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var friendsLabel: UILabel!
     
+    let animationRotateDegres: CGFloat = 0.5
+    let animationTranslateX: CGFloat = 1.0
+    let animationTranslateY: CGFloat = 1.0
+    let count: Int = 1
+    
     
     var limbo = false
     
@@ -54,6 +59,31 @@ class UpCollectionViewCell: UICollectionViewCell {
         progressLine.addAnimation(animateStrokeEnd, forKey: "Send Buffer")
         
         return true;
+        
+    }
+
+    func wobble() {
+        let leftOrRight: CGFloat = (count % 2 == 0 ? 1 : -1)
+        let rightOrLeft: CGFloat = (count % 2 == 0 ? -1 : 1)
+        let leftWobble: CGAffineTransform = CGAffineTransformMakeRotation(degreesToRadians(animationRotateDegres * leftOrRight))
+        let rightWobble: CGAffineTransform = CGAffineTransformMakeRotation(degreesToRadians(animationRotateDegres * rightOrLeft))
+        let moveTransform: CGAffineTransform = CGAffineTransformTranslate(leftWobble, -animationTranslateX, -animationTranslateY)
+        let conCatTransform: CGAffineTransform = CGAffineTransformConcat(leftWobble, moveTransform)
+        
+        transform = rightWobble // starting point
+        
+        UIView.animateWithDuration(0.1, delay: 0.08, options: [.AllowUserInteraction, .Repeat, .Autoreverse], animations: { () -> Void in
+            self.transform = conCatTransform
+            }, completion: nil)
+    }
+    
+    func degreesToRadians(x: CGFloat) -> CGFloat {
+        return CGFloat(M_PI) * x / 180.0
+    }
+    
+    func beginEditing(){
+        let deleteButton = UIButton(frame: CGRect(x: 10, y: 10, width: 30, height: 20))
+        deleteButton.setTitle("Delete", forState: .Normal)
         
     }
         

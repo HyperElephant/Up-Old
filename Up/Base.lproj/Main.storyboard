@@ -82,7 +82,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Ups" image="/Users/Daves/Documents/canvas1.png" selectedImage="/Users/Daves/Documents/canvas1.png" id="vIY-JD-qYY"/>
                     <navigationItem key="navigationItem" title="Up" id="FTT-y1-yrU">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="xka-dN-b0E"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="xka-dN-b0E">
+                            <connections>
+                                <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="QSX-E5-kfc"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rBp-SJ-B5Q">
                             <connections>
                                 <segue destination="I2a-Ye-gry" kind="popoverPresentation" identifier="addUpSegue" popoverAnchorBarButtonItem="rBp-SJ-B5Q" id="vBw-UO-Txq">
@@ -484,7 +488,7 @@
                                 <rect key="frame" x="20" y="72" width="55" height="30"/>
                                 <state key="normal" title="Log Out"/>
                                 <connections>
-                                    <action selector="logOutButtonPressed:" destination="0Ek-Ud-DvN" eventType="touchUpInside" id="eAP-lh-WSn"/>
+                                    <action selector="logOutButtonPressed:" destination="0Ek-Ud-DvN" eventType="touchUpInside" id="yUy-MF-fE8"/>
                                 </connections>
                             </button>
                         </subviews>

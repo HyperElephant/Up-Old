@@ -13,9 +13,9 @@ class SettingsViewController: UIViewController {
 
     @IBAction func logOutButtonPressed(sender: AnyObject) {
         try! FIRAuth.auth()!.signOut()
+        print("logged out")
         self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

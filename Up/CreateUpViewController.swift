@@ -24,7 +24,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func addButtonPressed(sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
         
-        let newUp = Up(id: "", author: (user?.email!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
+        let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
         newUp.upload()
     }
     
@@ -96,13 +96,16 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     func configureFriends(){
         ref = FIRDatabase.database().reference()
-        print("here")
+        let username = FIRAuth.auth()?.currentUser?.displayName
+
         // Listen for new messages in the Firebase database
         _refHandle = self.ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-            print("there")
-            self.friends.append(snapshot)
-            self.friendsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.friends.count-1, inSection: 0)], withRowAnimation: .Automatic)})
-        
+            if (snapshot.value![Constants.FriendFields.username] as! String!) != username {
+                self.friends.append(snapshot)
+                self.friendsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.friends.count-1, inSection: 0)], withRowAnimation: .Automatic)
+            }
+        })
+            
     }
     
     /*
