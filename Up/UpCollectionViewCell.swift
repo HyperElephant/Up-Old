@@ -63,6 +63,7 @@ class UpCollectionViewCell: UICollectionViewCell {
     }
 
     func wobble() {
+                
         let leftOrRight: CGFloat = (count % 2 == 0 ? 1 : -1)
         let rightOrLeft: CGFloat = (count % 2 == 0 ? -1 : 1)
         let leftWobble: CGAffineTransform = CGAffineTransformMakeRotation(degreesToRadians(animationRotateDegres * leftOrRight))
@@ -81,10 +82,6 @@ class UpCollectionViewCell: UICollectionViewCell {
         return CGFloat(M_PI) * x / 180.0
     }
     
-    func beginEditing(){
-        let deleteButton = UIButton(frame: CGRect(x: 10, y: 10, width: 30, height: 20))
-        deleteButton.setTitle("Delete", forState: .Normal)
-        
-    }
+
         
 }

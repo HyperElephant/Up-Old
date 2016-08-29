@@ -17,11 +17,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
-
+    
     @IBOutlet weak var upCollectionView: UICollectionView!
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
 
+        
+    }
+    
+    @IBAction func editButtonPressed(sender: AnyObject) {
         
     }
     

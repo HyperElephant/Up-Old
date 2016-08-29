@@ -84,7 +84,7 @@
                     <navigationItem key="navigationItem" title="Up" id="FTT-y1-yrU">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="xka-dN-b0E">
                             <connections>
-                                <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="QSX-E5-kfc"/>
+                                <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="IzB-vp-Tfr"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rBp-SJ-B5Q">
@@ -294,11 +294,11 @@
             </objects>
             <point key="canvasLocation" x="2673" y="438"/>
         </scene>
-        <!--Item-->
+        <!--Ups-->
         <scene sceneID="tJB-l1-S2a">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lcm-6Q-Oad" customClass="UpNavigationController" customModule="Up" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="bbP-ER-dpz"/>
+                    <tabBarItem key="tabBarItem" title="Ups" id="bbP-ER-dpz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z9y-i4-w1F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -434,11 +434,11 @@
             </objects>
             <point key="canvasLocation" x="344" y="438"/>
         </scene>
-        <!--Item-->
+        <!--Inbox-->
         <scene sceneID="1oa-XO-z9m">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qB3-vX-w7W" customClass="UpNavigationController" customModule="Up" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="bPT-Zb-n8f"/>
+                    <tabBarItem key="tabBarItem" title="Inbox" id="bPT-Zb-n8f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wZO-iK-ShK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
