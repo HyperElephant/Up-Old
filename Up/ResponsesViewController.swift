@@ -12,7 +12,7 @@ import Firebase
 class ResponsesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
     let reuseIdentifier = "upCell"
-    var incoming: [FIRDataSnapshot]! = []
+    var responses: [FIRDataSnapshot]! = []
     var ups: [FIRDataSnapshot]! = []
     
     var side = CGFloat(0)
@@ -53,7 +53,7 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
         
         let up = Up(snapshot: ups[indexPath.row])
         
-        cell.sentKey = incoming[indexPath.row].key
+        cell.sentKey = responses[indexPath.row].key
         
         cell.titleLabel!.text = up?.title
         
@@ -85,32 +85,32 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
         ref = FIRDatabase.database().reference()
         let username = FIRAuth.auth()?.currentUser?.displayName
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-            self.incoming.append(snapshot)
-            self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
+        _refHandle = self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+            self.responses.append(snapshot)
+            self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
         })
         
-        self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+        self.ref.child(Constants.InquiryFields.inquiry).queryOrderedByChild(Constants.InquiryFields.recipientName).queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
             print(snapshot)
-            let index = self.indexOfIncoming(snapshot)
+            let index = self.indexOfResponse(snapshot)
             self.ups.removeAtIndex(index)
-            self.incoming.removeAtIndex(index)
-            //self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
+            self.responses.removeAtIndex(index)
+            //self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
             self.inboxCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
     
     func configureUpsDatabase(upID: String) {
-        ref = FIRDatabase.database().reference().child("ups")
+        ref = FIRDatabase.database().reference().child(Constants.UpFields.ups)
         ref.child(upID).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             self.ups.append(snapshot)
             self.inboxCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
         })
     }
     
-    func indexOfIncoming(snapshot: FIRDataSnapshot) -> Int {
+    func indexOfResponse(snapshot: FIRDataSnapshot) -> Int {
         var index = 0
-        for  item in self.incoming {
+        for  item in self.responses {
             if (snapshot.key == item.key) {
                 return index
             }

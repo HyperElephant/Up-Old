@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReguestsPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class RequestsPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     var pages = [UIViewController]()
 
@@ -19,10 +19,12 @@ class ReguestsPageViewController: UIPageViewController, UIPageViewControllerDele
         self.dataSource = self
         
         let inboxPage = storyboard?.instantiateViewControllerWithIdentifier("inboxViewControllerID") as! InboxViewController
+        let responsesPage = storyboard?.instantiateViewControllerWithIdentifier("responsesViewControllerID") as! ResponsesViewController
         
         pages.append(inboxPage)
+        pages.append(responsesPage)
         
-        setViewControllers([inboxPage], direction: .Forward, animated: true, completion: nil)
+        setViewControllers([inboxPage], direction: .Forward, animated: false, completion: nil)
 
         // Do any additional setup after loading the view.
     }

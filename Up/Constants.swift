@@ -20,8 +20,14 @@ struct Constants {
         static let username = "username"
     }
     
-    struct SendFields {
-        static let username = "username"
+    struct InquiryFields {
+        static let inquiry = "inquiry"
+        static let recipientName = "recipientName"
+        static let upID = "upID"
+    }
+    struct ResponseFields {
+        static let response = "response"
+        static let authortName = "authorName"
         static let upID = "upID"
     }
 }
