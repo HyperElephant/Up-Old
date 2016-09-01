@@ -78,6 +78,10 @@ class UpCollectionViewCell: UICollectionViewCell {
             }, completion: nil)
     }
     
+    func stopWobble() {
+        self.layer.removeAllAnimations();
+    }
+    
     func degreesToRadians(x: CGFloat) -> CGFloat {
         return CGFloat(M_PI) * x / 180.0
     }

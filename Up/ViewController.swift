@@ -17,6 +17,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
+    private var isWobbling = false;
     
     @IBOutlet weak var upCollectionView: UICollectionView!
     
@@ -26,6 +27,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     @IBAction func editButtonPressed(sender: AnyObject) {
+        if isWobbling {
+            for cell in self.upCollectionView.visibleCells() {
+                let cell = cell as! UpCollectionViewCell
+                cell.stopWobble()
+            }
+            isWobbling = false;
+        }
+        else {
+            for cell in self.upCollectionView.visibleCells() {
+                let cell = cell as! UpCollectionViewCell
+                cell.wobble()
+            }
+            isWobbling = true
+        }
         
     }
     
@@ -83,12 +98,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // handle tap events
-        let up = Up(snapshot: ups[indexPath.row])
-        up!.send()
-        
-        print("You selected cell #\(indexPath.item)!")
-        
+        if isWobbling {
+            let key = ups[indexPath.row].key
+            ref.child("Ups").child(key).removeValue()
+        }
+        else {
+            // handle tap events
+            let up = Up(snapshot: ups[indexPath.row])
+            up!.send()
+            
+            print("You selected cell #\(indexPath.item)!")
+        }
     }
     
     
