@@ -256,7 +256,6 @@
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addButtonPressed:" destination="I2a-Ye-gry" eventType="touchUpInside" id="hbs-lL-lMG"/>
-                                    <segue destination="EoY-qQ-zh4" kind="unwind" unwindAction="myUnwindAction:" id="wJG-7J-522"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nS2-jX-Gqw">
@@ -294,9 +293,6 @@
                                     <constraint firstAttribute="width" constant="51" id="kRD-zu-a3F"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <segue destination="EoY-qQ-zh4" kind="unwind" unwindAction="myUnwindAction:" id="hYS-9M-Wol"/>
-                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WI8-cA-ZM1">
                                 <rect key="frame" x="177" y="214" width="246" height="378"/>
@@ -309,7 +305,7 @@
                                         <rect key="frame" x="0.0" y="28" width="246" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nyy-bK-lPK" id="x3x-73-bvh">
-                                            <rect key="frame" x="0.0" y="0.0" width="246" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -337,6 +333,7 @@
                         <outlet property="descriptionTextField" destination="7ic-mu-gWW" id="5bk-qm-aWX"/>
                         <outlet property="friendsTableView" destination="WI8-cA-ZM1" id="ORZ-jb-hzZ"/>
                         <outlet property="titleTextField" destination="eAa-E3-1mm" id="gdv-iE-593"/>
+                        <segue destination="EoY-qQ-zh4" kind="unwind" identifier="unwindOnUpCreation" unwindAction="myUnwindAction:" id="6jY-5P-5vO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xVJ-XP-moT" userLabel="First Responder" sceneMemberID="firstResponder"/>

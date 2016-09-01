@@ -23,9 +23,18 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addButtonPressed(sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
+                
+        if titleTextField.text != "" {
+            let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
+            newUp.upload()
+            performSegueWithIdentifier("unwindOnUpCreation", sender: self)
+        }
+        else {
+            showAlert("Up needs title")
+        }
         
-        let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
-        newUp.upload()
+        
+        
     }
     
     
