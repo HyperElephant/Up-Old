@@ -17,7 +17,7 @@ class InboxCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBAction func yesButtonPressed(sender: AnyObject) {
-        ref = FIRDatabase.database().reference().child("sent")
+        ref = FIRDatabase.database().reference().child("inquiry")
         ref.child(sentKey).removeValue()
         print("yes")
         

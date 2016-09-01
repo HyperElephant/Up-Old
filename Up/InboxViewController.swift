@@ -85,17 +85,17 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
         ref = FIRDatabase.database().reference()
         let username = FIRAuth.auth()?.currentUser?.displayName
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        _refHandle = self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.incoming.append(snapshot)
-            self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
+            self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
         })
         
-        self.ref.child("sent").queryOrderedByChild("username").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+        self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
             print(snapshot)
             let index = self.indexOfIncoming(snapshot)
             self.ups.removeAtIndex(index)
             self.incoming.removeAtIndex(index)
-            //self.configureUpsDatabase(snapshot.value![Constants.SendFields.upID] as! String!)
+            //self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
             self.inboxCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
