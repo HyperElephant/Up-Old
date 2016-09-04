@@ -94,9 +94,10 @@ class Up: NSObject {
         let ref = FIRDatabase.database().reference()
         
         for friend in friends {
-            let key = ref.child("inquiry").childByAutoId().key
+            let key = ref.child(Constants.InquiryFields.inquiry).childByAutoId().key
             let newSent = [Constants.InquiryFields.recipientName: friend.username,
-                           Constants.InquiryFields.upID: self.id]
+                           Constants.InquiryFields.upID: self.id,
+                           Constants.InquiryFields.seen: false]
             let update = ["/inquiry/\(key)": newSent]
             ref.updateChildValues(update)
         

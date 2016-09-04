@@ -19,8 +19,10 @@
 		7404C0731D1F6031004BD95F /* UpCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */; };
 		7404C0751D1F7148004BD95F /* UpNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0741D1F7148004BD95F /* UpNavigationController.swift */; };
 		741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */; };
-		7479CD9D1D72548A0005F3E2 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9C1D72548A0005F3E2 /* InboxViewController.swift */; };
-		7479CD9F1D725AA50005F3E2 /* InboxCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InboxCollectionViewCell.swift */; };
+		7456F5111D7BACFC003CF997 /* Inquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5101D7BACFC003CF997 /* Inquiry.swift */; };
+		7456F5131D7BAD0E003CF997 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5121D7BAD0E003CF997 /* Response.swift */; };
+		7479CD9D1D72548A0005F3E2 /* InquiriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */; };
+		7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */; };
 		7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */; };
 		7479CDA31D7398F50005F3E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */; };
 		74950BAF1D344ECF000EAB79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */; };
@@ -78,8 +80,10 @@
 		7404C0741D1F7148004BD95F /* UpNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpNavigationController.swift; sourceTree = "<group>"; };
 		7404C0761D1F75DC004BD95F /* Up.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Up.entitlements; sourceTree = "<group>"; };
 		741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpViewController.swift; sourceTree = "<group>"; };
-		7479CD9C1D72548A0005F3E2 /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
-		7479CD9E1D725AA50005F3E2 /* InboxCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxCollectionViewCell.swift; sourceTree = "<group>"; };
+		7456F5101D7BACFC003CF997 /* Inquiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inquiry.swift; sourceTree = "<group>"; };
+		7456F5121D7BAD0E003CF997 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesViewController.swift; sourceTree = "<group>"; };
+		7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -176,18 +180,20 @@
 				7404C0761D1F75DC004BD95F /* Up.entitlements */,
 				7404C0411D1F5F3D004BD95F /* AppDelegate.swift */,
 				7404C0431D1F5F3D004BD95F /* ViewController.swift */,
-				7479CD9C1D72548A0005F3E2 /* InboxViewController.swift */,
+				7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */,
 				74B182E21D779C5A00CC4873 /* ResponsesViewController.swift */,
+				7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */,
+				74B182E41D77A7D500CC4873 /* ResponseCollectionViewCell.swift */,
+				74B182E01D77980600CC4873 /* RequestsPageViewController.swift */,
 				7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */,
 				741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */,
 				7404C0741D1F7148004BD95F /* UpNavigationController.swift */,
 				7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */,
-				74B182E01D77980600CC4873 /* RequestsPageViewController.swift */,
-				7479CD9E1D725AA50005F3E2 /* InboxCollectionViewCell.swift */,
-				74B182E41D77A7D500CC4873 /* ResponseCollectionViewCell.swift */,
 				74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */,
 				7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */,
 				74C73BA61D6FDF3900E011AD /* Helpers.swift */,
+				7456F5121D7BAD0E003CF997 /* Response.swift */,
+				7456F5101D7BACFC003CF997 /* Inquiry.swift */,
 				74D9CB441D6D404B00AB48A6 /* Up.swift */,
 				74D9CB461D6E6DC600AB48A6 /* Friend.swift */,
 				74C73BA01D6FC2B300E011AD /* Constants.swift */,
@@ -619,18 +625,20 @@
 				7404C0441D1F5F3D004BD95F /* ViewController.swift in Sources */,
 				74B182E51D77A7D500CC4873 /* ResponseCollectionViewCell.swift in Sources */,
 				74B182E11D77980600CC4873 /* RequestsPageViewController.swift in Sources */,
+				7456F5131D7BAD0E003CF997 /* Response.swift in Sources */,
 				74D9CB451D6D404B00AB48A6 /* Up.swift in Sources */,
 				7404C0731D1F6031004BD95F /* UpCollectionViewCell.swift in Sources */,
 				74C73BA71D6FDF3900E011AD /* Helpers.swift in Sources */,
 				7404C04A1D1F5F3D004BD95F /* Up.xcdatamodeld in Sources */,
 				7404C0421D1F5F3D004BD95F /* AppDelegate.swift in Sources */,
-				7479CD9D1D72548A0005F3E2 /* InboxViewController.swift in Sources */,
+				7479CD9D1D72548A0005F3E2 /* InquiriesViewController.swift in Sources */,
 				7479CDA31D7398F50005F3E2 /* SettingsViewController.swift in Sources */,
 				741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */,
 				74D9CB471D6E6DC600AB48A6 /* Friend.swift in Sources */,
 				7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */,
 				74C73BA51D6FCE5A00E011AD /* LogInViewController.swift in Sources */,
-				7479CD9F1D725AA50005F3E2 /* InboxCollectionViewCell.swift in Sources */,
+				7456F5111D7BACFC003CF997 /* Inquiry.swift in Sources */,
+				7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */,
 				74B182E31D779C5A00CC4873 /* ResponsesViewController.swift in Sources */,
 				74C73BA11D6FC2B300E011AD /* Constants.swift in Sources */,
 			);

@@ -24,10 +24,14 @@ struct Constants {
         static let inquiry = "inquiry"
         static let recipientName = "recipientName"
         static let upID = "upID"
+        static let seen = "seen"
     }
     struct ResponseFields {
         static let response = "response"
-        static let authortName = "authorName"
+        static let isUp = "isUp"
+        static let authorName = "authorName"
+        static let responderName = "responderName"
         static let upID = "upID"
+        static let seen = "seen"
     }
 }

@@ -1,5 +1,5 @@
 //
-//  InboxViewController.swift
+//  InquiriesViewController.swift
 //  Up
 //
 //  Created by David Taylor on 8/27/16.
@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class InboxViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
+class InquiriesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
     let reuseIdentifier = "upCell"
     var incoming: [FIRDataSnapshot]! = []
@@ -19,15 +19,15 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
     
-    @IBOutlet weak var inboxCollectionView: UICollectionView!
+    @IBOutlet weak var inquiriesCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         side = (self.view.frame.width / 2) - CGFloat(30)
 
-        inboxCollectionView.delegate = self
-        inboxCollectionView.dataSource = self
+        inquiriesCollectionView.delegate = self
+        inquiriesCollectionView.dataSource = self
         
         configureIncomingDatabase()
         // Do any additional setup after loading the view.
@@ -49,13 +49,19 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! InboxCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! InquiriesCollectionViewCell
         
-        let up = Up(snapshot: ups[indexPath.row])
-        
-        cell.sentKey = incoming[indexPath.row].key
-        
-        cell.titleLabel!.text = up?.title
+        if let up = Up(snapshot: ups[indexPath.row]), inquiry = Inquiry(snapshot: incoming[indexPath.row]) {
+            cell.key = inquiry.id
+            cell.upID = up.id 
+            cell.upAuthor = up.author
+            cell.username = inquiry.recipientName
+
+            cell.titleLabel!.text = up.title
+            
+        } else {
+            cell.titleLabel!.text = "Error"
+        }
         
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
@@ -69,7 +75,6 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // handle tap events
-        print("You selected cell #\(indexPath.item)!")
         
     }
     
@@ -91,12 +96,11 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
         })
         
         self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
-            print(snapshot)
             let index = self.indexOfIncoming(snapshot)
             self.ups.removeAtIndex(index)
             self.incoming.removeAtIndex(index)
             //self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
-            self.inboxCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+            self.inquiriesCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
     
@@ -104,7 +108,7 @@ class InboxViewController: UIViewController, UICollectionViewDataSource, UIColle
         ref = FIRDatabase.database().reference().child("ups")
         ref.child(upID).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             self.ups.append(snapshot)
-            self.inboxCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
+            self.inquiriesCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
         })
     }
 

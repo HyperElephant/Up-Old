@@ -8,25 +8,34 @@
 
 import UIKit
 
-class RequestsPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class RequestsPageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
-    var pages = [UIViewController]()
+    @IBOutlet weak var requestsNavigationBar: UINavigationItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.delegate = self
         self.dataSource = self
+        self.view.backgroundColor = UIColor.whiteColor()
         
-        let inboxPage = storyboard?.instantiateViewControllerWithIdentifier("inboxViewControllerID") as! InboxViewController
-        let responsesPage = storyboard?.instantiateViewControllerWithIdentifier("responsesViewControllerID") as! ResponsesViewController
-        
-        pages.append(inboxPage)
-        pages.append(responsesPage)
-        
-        setViewControllers([inboxPage], direction: .Forward, animated: false, completion: nil)
+        if let firstViewController = orderedViewControllers.first {
+            setViewControllers([firstViewController],
+                               direction: .Forward,
+                               animated: true,
+                               completion: nil)
+        }
 
         // Do any additional setup after loading the view.
+    }
+    
+    private(set) lazy var orderedViewControllers: [UIViewController] = {
+        return [self.newViewController("inquiriesViewControllerID") as! InquiriesViewController,
+                self.newViewController("responsesViewControllerID") as! ResponsesViewController]
+    }()
+    
+    private func newViewController(ID: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil) .
+            instantiateViewControllerWithIdentifier("\(ID)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,24 +44,55 @@ class RequestsPageViewController: UIPageViewController, UIPageViewControllerDele
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        let currentIndex = pages.indexOf(viewController)!
-        let previousIndex = abs((currentIndex - 1) % pages.count)
-        return pages[previousIndex]
+        guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+            return nil
+        }
+        
+        let previousIndex = viewControllerIndex - 1
+        
+        guard previousIndex >= 0 else {
+            return nil
+        }
+        
+        guard orderedViewControllers.count > previousIndex else {
+            return nil
+        }
+        
+        return orderedViewControllers[previousIndex]
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        let currentIndex = pages.indexOf(viewController)!
-        let nextIndex = abs((currentIndex + 1) % pages.count)
-        return pages[nextIndex]
+        guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+            return nil
+        }
+        
+        let nextIndex = viewControllerIndex + 1
+        let orderedViewControllersCount = orderedViewControllers.count
+        
+        guard orderedViewControllersCount != nextIndex else {
+            return nil
+        }
+        
+        guard orderedViewControllersCount > nextIndex else {
+            return nil
+        }
+        
+        return orderedViewControllers[nextIndex]
     }
     
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return pages.count
+        return orderedViewControllers.count
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
+        guard let firstViewController = viewControllers?.first,
+            firstViewControllerIndex = orderedViewControllers.indexOf(firstViewController) else {
+                return 0
+        }
+        
+        return firstViewControllerIndex
     }
+    
 
     /*
     // MARK: - Navigation
