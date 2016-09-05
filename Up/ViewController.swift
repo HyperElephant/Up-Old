@@ -100,7 +100,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if isWobbling {
             let key = ups[indexPath.row].key
-            ref.child("Ups").child(key).removeValue()
+            ref.child("ups").child(key).removeValue()
+            
+            
         }
         else {
             // handle tap events
@@ -127,6 +129,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         _refHandle = self.ref.child(Constants.UpFields.ups).queryOrderedByChild(Constants.UpFields.author).queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.ups.append(snapshot)
             self.upCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
+        })
+        
+        self.ref.child("ups").queryOrderedByChild("author").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+            let index = self.indexOfUp(snapshot)
+            print(index)
+            self.ups.removeAtIndex(index)
+            self.upCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
 
@@ -200,6 +209,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             print("Could not find index path")
         }
+    }
+    
+    func indexOfUp(snapshot: FIRDataSnapshot) -> Int {
+        var index = 0
+        for  item in self.ups {
+            if (snapshot.key == item.key) {
+                return index
+            }
+            index += 1
+        }
+        return -1
     }
 
 }
