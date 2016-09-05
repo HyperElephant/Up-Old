@@ -155,7 +155,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             friendString = ""
         }else if friends.count < 4{
             
-            for x in 0...friends.count{
+            for x in 0...(friends.count - 1){
                 friendString += friends[x].username
                 if x < friends.count{
                     friendString += ", "
@@ -165,7 +165,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 
             }
         } else {
-            for x in 0...friends.count{
+            for x in 0...(friends.count - 1){
                 friendString += friends[x].username
                 if x < friends.count{
                     friendString += ", "

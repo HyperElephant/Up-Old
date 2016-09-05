@@ -39,8 +39,6 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
             print("Error: Add checks failed")
         }
         
-        
-        
     }
     
     
@@ -102,12 +100,15 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     func removeFriendFromList(unFriendData: FIRDataSnapshot){
         let unFriend = Friend(snapshot: unFriendData)
-        for x in 0...addedFriends.count{
+        for x in 0...(addedFriends.count - 1){
             if addedFriends[x] == unFriend{
+                let cell = friendsTableView.cellForRowAtIndexPath(NSIndexPath(forItem: x, inSection: 0))
+                cell!.selected = false
                 addedFriends.removeAtIndex(x)
             }
         }
     }
+    
     
     func configureFriends(){
         ref = FIRDatabase.database().reference()

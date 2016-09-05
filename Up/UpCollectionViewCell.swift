@@ -18,7 +18,6 @@ class UpCollectionViewCell: UICollectionViewCell {
     let animationTranslateY: CGFloat = 1.0
     let count: Int = 1
     
-    
     var limbo = false
     
     func showProgress() -> Bool{
@@ -86,6 +85,5 @@ class UpCollectionViewCell: UICollectionViewCell {
         return CGFloat(M_PI) * x / 180.0
     }
     
-
         
 }

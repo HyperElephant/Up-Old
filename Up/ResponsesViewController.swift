@@ -19,15 +19,15 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
     
-    @IBOutlet weak var inboxCollectionView: UICollectionView!
+    @IBOutlet weak var responsesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         side = (self.view.frame.width / 2) - CGFloat(30)
         
-        inboxCollectionView.delegate = self
-        inboxCollectionView.dataSource = self
+        responsesCollectionView.delegate = self
+        responsesCollectionView.dataSource = self
         
         configureIncomingDatabase()
         // Do any additional setup after loading the view.
@@ -49,13 +49,21 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! InboxCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ResponseCollectionViewCell
         
-        let up = Up(snapshot: ups[indexPath.row])
         
-        cell.sentKey = responses[indexPath.row].key
-        
-        cell.titleLabel!.text = up?.title
+        if let up = Up(snapshot: ups[indexPath.row]), response = Response(snapshot: responses[indexPath.row]) {
+            cell.key = response.id
+            cell.upID = up.id
+            var isUpString = "not up"
+            if response.isUp == true {
+                isUpString = "up"
+            }
+            cell.responseTitleLabel!.text = "\(response.responderName) is \(isUpString) to \(up.title)"
+            
+        } else {
+            cell.responseTitleLabel!.text = "Error"
+        }
         
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
@@ -69,7 +77,6 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // handle tap events
-        print("You selected cell #\(indexPath.item)!")
         
     }
     
@@ -85,18 +92,16 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
         ref = FIRDatabase.database().reference()
         let username = FIRAuth.auth()?.currentUser?.displayName
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        _refHandle = self.ref.child(Constants.ResponseFields.response).queryOrderedByChild(Constants.ResponseFields.authorName).queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.responses.append(snapshot)
-            self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
+            self.configureUpsDatabase(snapshot.value![Constants.ResponseFields.upID] as! String!)
         })
         
-        self.ref.child(Constants.InquiryFields.inquiry).queryOrderedByChild(Constants.InquiryFields.recipientName).queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
-            print(snapshot)
+        self.ref.child(Constants.ResponseFields.response).queryOrderedByChild(Constants.ResponseFields.authorName).queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
             let index = self.indexOfResponse(snapshot)
             self.ups.removeAtIndex(index)
             self.responses.removeAtIndex(index)
-            //self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
-            self.inboxCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+            self.responsesCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
     
@@ -104,7 +109,7 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
         ref = FIRDatabase.database().reference().child(Constants.UpFields.ups)
         ref.child(upID).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             self.ups.append(snapshot)
-            self.inboxCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
+            self.responsesCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
         })
     }
     
