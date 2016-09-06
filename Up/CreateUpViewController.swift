@@ -23,14 +23,20 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func addButtonPressed(sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
-                
-        if titleTextField.text != "" {
+        
+        if ((titleTextField.text != "") && (addedFriends.count > 0)) {
             let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
             newUp.upload()
             performSegueWithIdentifier("unwindOnUpCreation", sender: self)
         }
-        else {
+        else if titleTextField.text == "" {
             showAlert("Up needs title")
+        }
+        else if addedFriends.count == 0 {
+            showAlert("Up is better with friends")
+        }
+        else {
+            print("Error: Add checks failed")
         }
         
     }

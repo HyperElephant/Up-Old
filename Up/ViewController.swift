@@ -17,6 +17,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
+    private var isWobbling = false;
     
     @IBOutlet weak var upCollectionView: UICollectionView!
     
@@ -26,6 +27,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     @IBAction func editButtonPressed(sender: AnyObject) {
+        if isWobbling {
+            for cell in self.upCollectionView.visibleCells() {
+                let cell = cell as! UpCollectionViewCell
+                cell.stopWobble()
+            }
+            isWobbling = false;
+        }
+        else {
+            for cell in self.upCollectionView.visibleCells() {
+                let cell = cell as! UpCollectionViewCell
+                cell.wobble()
+            }
+            isWobbling = true
+        }
         
     }
     
@@ -108,6 +123,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.ups.append(snapshot)
             self.upCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
         })
+        
+        self.ref.child("ups").queryOrderedByChild("author").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+            let index = self.indexOfUp(snapshot)
+            print(index)
+            self.ups.removeAtIndex(index)
+            self.upCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+        })
     }
 
     
@@ -180,6 +202,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else {
             print("Could not find index path", terminator: "")
         }
+    }
+    
+    func indexOfUp(snapshot: FIRDataSnapshot) -> Int {
+        var index = 0
+        for  item in self.ups {
+            if (snapshot.key == item.key) {
+                return index
+            }
+            index += 1
+        }
+        return -1
     }
 
 }
