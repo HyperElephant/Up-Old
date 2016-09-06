@@ -87,7 +87,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let up = Up(snapshot: ups[indexPath.row])
         up!.send()
         
-        print("You selected cell #\(indexPath.item)!")
+        print("You selected cell #\(indexPath.item)!", terminator: "")
         
     }
     
@@ -176,9 +176,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             let cell = self.upCollectionView.cellForItemAtIndexPath(index) as! UpCollectionViewCell
             // do stuff with your cell, for example print the indexPath
             cell.wobble()
-            print(index.row)
+            print(index.row, terminator: "")
         } else {
-            print("Could not find index path")
+            print("Could not find index path", terminator: "")
         }
     }
 
