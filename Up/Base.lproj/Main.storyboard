@@ -382,7 +382,7 @@
         <scene sceneID="tJB-l1-S2a">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lcm-6Q-Oad" customClass="UpNavigationController" customModule="Up" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Ups" id="bbP-ER-dpz"/>
+                    <tabBarItem key="tabBarItem" title="Ups" image="tabBarIcons" id="bbP-ER-dpz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z9y-i4-w1F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -523,7 +523,7 @@
         <scene sceneID="1oa-XO-z9m">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qB3-vX-w7W" customClass="UpNavigationController" customModule="Up" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Requests" id="bPT-Zb-n8f"/>
+                    <tabBarItem key="tabBarItem" title="Requests" image="tabBarRequestsIcon" id="bPT-Zb-n8f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wZO-iK-ShK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -542,7 +542,7 @@
         <scene sceneID="gTN-uQ-ccd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VVH-t6-uzP" customClass="UpNavigationController" customModule="Up" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="V8F-rG-1ld"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="tabBarSettingsIcon" id="V8F-rG-1ld"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JhP-Ho-oeG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -592,5 +592,8 @@
     </scenes>
     <resources>
         <image name="/Users/Daves/Documents/canvas1.png" width="16" height="16"/>
+        <image name="tabBarIcons" width="25" height="25"/>
+        <image name="tabBarRequestsIcon" width="25" height="25"/>
+        <image name="tabBarSettingsIcon" width="25" height="25"/>
     </resources>
 </document>

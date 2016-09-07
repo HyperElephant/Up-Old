@@ -25,6 +25,7 @@
 		7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */; };
 		7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */; };
 		7479CDA31D7398F50005F3E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */; };
+		7489716F1D7FB52700BBB94D /* UpStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7489716E1D7FB52700BBB94D /* UpStyleKit.swift */; };
 		74950BAF1D344ECF000EAB79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */; };
 		74B182E11D77980600CC4873 /* RequestsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B182E01D77980600CC4873 /* RequestsPageViewController.swift */; };
 		74B182E31D779C5A00CC4873 /* ResponsesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B182E21D779C5A00CC4873 /* ResponsesViewController.swift */; };
@@ -86,6 +87,7 @@
 		7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		7489716E1D7FB52700BBB94D /* UpStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpStyleKit.swift; sourceTree = "<group>"; };
 		74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74B182E01D77980600CC4873 /* RequestsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsPageViewController.swift; sourceTree = "<group>"; };
 		74B182E21D779C5A00CC4873 /* ResponsesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponsesViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		7404C0351D1F5F3D004BD95F = {
 			isa = PBXGroup;
 			children = (
+				7489716E1D7FB52700BBB94D /* UpStyleKit.swift */,
 				74950BAE1D344ECF000EAB79 /* GoogleService-Info.plist */,
 				7404C0401D1F5F3D004BD95F /* Up */,
 				7404C0581D1F5F3E004BD95F /* UpTests */,
@@ -639,6 +642,7 @@
 				7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */,
 				74C73BA51D6FCE5A00E011AD /* LogInViewController.swift in Sources */,
 				7456F5111D7BACFC003CF997 /* Inquiry.swift in Sources */,
+				7489716F1D7FB52700BBB94D /* UpStyleKit.swift in Sources */,
 				7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */,
 				74B182E31D779C5A00CC4873 /* ResponsesViewController.swift in Sources */,
 				74C73BA11D6FC2B300E011AD /* Constants.swift in Sources */,
