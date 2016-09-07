@@ -24,6 +24,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func addButtonPressed(sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
         
+        
         if ((titleTextField.text != "") && (addedFriends.count > 0)) {
             let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
             newUp.upload()
@@ -44,6 +45,13 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .clearColor()
+        let newFrame = CGRectMake(20, 20, self.view.frame.width - 40, self.view.frame.height - 40)
+        let backgroundView = UIView(frame: newFrame)
+        backgroundView.backgroundColor = UIColor.whiteColor()
+        backgroundView.layer.cornerRadius = 5
+        self.view.addSubview(backgroundView)
+        self.view.sendSubviewToBack(backgroundView)
         
         self.friendsTableView?.dataSource = self
         self.friendsTableView?.delegate = self

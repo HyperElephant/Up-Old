@@ -29,4 +29,17 @@ class DatabaseHelper: NSObject {
         return data
     }
     
+    
+    //Does work
+    func indexOfSnapshot(snapshot: FIRDataSnapshot, list: [FIRDataSnapshot]) -> Int {
+        var index = 0
+        for  item in list {
+            if (snapshot.key == item.key) {
+                return index
+            }
+            index += 1
+        }
+        return -1
+    }
+    
 }

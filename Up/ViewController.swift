@@ -19,11 +19,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     private var _refHandle: FIRDatabaseHandle!
     private var isWobbling = false;
     
+    var tintView = UIView()
+    
     @IBOutlet weak var upCollectionView: UICollectionView!
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
-
+        tintView.removeFromSuperview()
         
+    }
+    
+    @IBAction func addButtonPressed(sender: AnyObject) {
+        
+        tintView = UIView(frame: self.view.frame)
+        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        
+        self.parentViewController?.parentViewController?.view.addSubview(tintView)
+        performSegueWithIdentifier("addUpSegue", sender: self)
     }
     
     @IBAction func editButtonPressed(sender: AnyObject) {
@@ -98,12 +109,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // handle tap events
-        let up = Up(snapshot: ups[indexPath.row])
-        up!.send()
-        
-        print("You selected cell #\(indexPath.item)!", terminator: "")
-        
+        if isWobbling {
+            let key = ups[indexPath.row].key
+            ref.child("ups").child(key).removeValue()
+            
+        }
+        else {
+            // handle tap events
+            let up = Up(snapshot: ups[indexPath.row])
+            up!.send()
+            
+            print("You selected cell #\(indexPath.item)!")
+        }
     }
     
     
