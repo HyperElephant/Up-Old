@@ -45,6 +45,9 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.tintColor = UpStyleKit.accentColor
+        
         self.view.backgroundColor = .clearColor()
         let newFrame = CGRectMake(20, 20, self.view.frame.width - 40, self.view.frame.height - 40)
         let backgroundView = UIView(frame: newFrame)

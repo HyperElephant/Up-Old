@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+@IBDesignable
+
 class ResponseCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var responseTitleLabel: UILabel!
@@ -21,6 +23,17 @@ class ResponseCollectionViewCell: UICollectionViewCell {
         ref = FIRDatabase.database().reference().child(Constants.ResponseFields.response)
         ref.child(key).removeValue()
         
+    }
+    
+    override func drawRect(rect: CGRect) {
+        
+        //// Oval Drawing
+        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 1, y: 1, width: rect.width - 2, height: rect.height - 2))
+        UIColor.whiteColor().setFill()
+        ovalPath.fill()
+        UpStyleKit.outlineColor.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
     }
     
 }

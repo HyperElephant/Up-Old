@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+@IBDesignable
+
 class InquiriesCollectionViewCell: UICollectionViewCell {
     
     var key = String()
@@ -30,6 +32,17 @@ class InquiriesCollectionViewCell: UICollectionViewCell {
         ref = FIRDatabase.database().reference().child("inquiry")
         ref.child(key).removeValue()
         sendResponse(false)
+    }
+    
+    override func drawRect(rect: CGRect) {
+        
+        //// Oval Drawing
+        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 1, y: 1, width: rect.width - 2, height: rect.height - 2))
+        UIColor.whiteColor().setFill()
+        ovalPath.fill()
+        UpStyleKit.outlineColor.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
     }
     
     func sendResponse(isUp: Bool){

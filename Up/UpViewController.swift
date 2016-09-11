@@ -9,7 +9,9 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
+@IBDesignable
+
+class UpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     let reuseIdentifier = "upCell"
     var ups: [FIRDataSnapshot]! = []
@@ -17,10 +19,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
-    private var isWobbling = false;
+    private var isWobbling = false
+    var longPressGesture = UIGestureRecognizer()
     
     var tintView = UIView()
     
+    @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var upCollectionView: UICollectionView!
     
     @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
@@ -39,6 +43,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBAction func editButtonPressed(sender: AnyObject) {
         if isWobbling {
+            editButton.title = "Edit"
             for cell in self.upCollectionView.visibleCells() {
                 let cell = cell as! UpCollectionViewCell
                 cell.stopWobble()
@@ -46,6 +51,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             isWobbling = false;
         }
         else {
+            editButton.title = "Done"
             for cell in self.upCollectionView.visibleCells() {
                 let cell = cell as! UpCollectionViewCell
                 cell.wobble()
@@ -57,19 +63,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.upCollectionView?.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         
         self.upCollectionView?.delegate = self
         self.upCollectionView?.dataSource = self
         
-        side = (self.view.frame.width / 2) - CGFloat(30)
+        side = (self.view.frame.width / 2) - CGFloat(20)
         
         configureDatabase()
         
-        let longPress = UILongPressGestureRecognizer(target:self, action: #selector(ViewController.handleLongPress(_:)))
-        longPress.minimumPressDuration = 0.5
+        let longPress = UILongPressGestureRecognizer(target:self, action: #selector(UpViewController.handleLongPress(_:)))
+        longPress.minimumPressDuration = 0.1
         longPress.delaysTouchesBegan = true
         longPress.delegate = self
-        self.upCollectionView.addGestureRecognizer(longPress)
+        
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(UpViewController.handleLongGesture(_:)))
+        self.upCollectionView.addGestureRecognizer(longPressGesture)
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -97,11 +106,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
         cell.titleLabel!.text = up!.title
         cell.friendsLabel!.text = friendString
-
+        /*
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = side/2
+         */
         
         return cell
     }
@@ -127,6 +137,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {        
         return CGSizeMake(side, side);
+    }
+    
+    func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        let up = ups.removeAtIndex(sourceIndexPath.item)
+        ups.insert(up, atIndex: destinationIndexPath.item)
     }
     
     
@@ -231,6 +246,27 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         return -1
     }
+    
+    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+        
+        switch(gesture.state) {
+            
+        case UIGestureRecognizerState.Began:
+            guard let selectedIndexPath = self.upCollectionView.indexPathForItemAtPoint(gesture.locationInView(self.upCollectionView)) else {
+                break
+            }
+            upCollectionView.beginInteractiveMovementForItemAtIndexPath(selectedIndexPath)
+        case UIGestureRecognizerState.Changed:
+        upCollectionView.updateInteractiveMovementTargetPosition(gesture.locationInView(gesture.view!))
+        case UIGestureRecognizerState.Ended:
+            upCollectionView.endInteractiveMovement()
+        default:
+            upCollectionView.cancelInteractiveMovement()
+        }
+        
+        
+    }
+    
 
 }
     

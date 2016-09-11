@@ -24,7 +24,10 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        side = (self.view.frame.width / 2) - CGFloat(30)
+        self.inquiriesCollectionView?.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+
+        
+        side = (self.view.frame.width / 2) - CGFloat(20)
 
         inquiriesCollectionView.delegate = self
         inquiriesCollectionView.dataSource = self
@@ -62,12 +65,12 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
         } else {
             cell.titleLabel!.text = "Error"
         }
-        
+        /*
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = side/2
-        
+        */
         return cell
     }
     

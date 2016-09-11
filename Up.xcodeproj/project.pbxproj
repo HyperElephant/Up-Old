@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		152299186C4E366F51BFF542 /* Pods_UpUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0788A73FE3A5B799FF68BF6A /* Pods_UpUITests.framework */; };
 		7404C0421D1F5F3D004BD95F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0411D1F5F3D004BD95F /* AppDelegate.swift */; };
-		7404C0441D1F5F3D004BD95F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0431D1F5F3D004BD95F /* ViewController.swift */; };
+		7404C0441D1F5F3D004BD95F /* UpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0431D1F5F3D004BD95F /* UpViewController.swift */; };
 		7404C0471D1F5F3D004BD95F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7404C0451D1F5F3D004BD95F /* Main.storyboard */; };
 		7404C04A1D1F5F3D004BD95F /* Up.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7404C0481D1F5F3D004BD95F /* Up.xcdatamodeld */; };
 		7404C04C1D1F5F3D004BD95F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7404C04B1D1F5F3D004BD95F /* Assets.xcassets */; };
@@ -21,6 +21,7 @@
 		741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */; };
 		7456F5111D7BACFC003CF997 /* Inquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5101D7BACFC003CF997 /* Inquiry.swift */; };
 		7456F5131D7BAD0E003CF997 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5121D7BAD0E003CF997 /* Response.swift */; };
+		74757B891D80EC7400C88302 /* UpTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74757B881D80EC7400C88302 /* UpTabBarController.swift */; };
 		7479CD9D1D72548A0005F3E2 /* InquiriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */; };
 		7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */; };
 		7479CDA11D729F330005F3E2 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */; };
@@ -65,7 +66,7 @@
 		646562595C5906DD83D0A762 /* Pods-UpTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UpTests/Pods-UpTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7404C03E1D1F5F3D004BD95F /* Up.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Up.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7404C0411D1F5F3D004BD95F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7404C0431D1F5F3D004BD95F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7404C0431D1F5F3D004BD95F /* UpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpViewController.swift; sourceTree = "<group>"; };
 		7404C0461D1F5F3D004BD95F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7404C0491D1F5F3D004BD95F /* Up.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Up.xcdatamodel; sourceTree = "<group>"; };
 		7404C04B1D1F5F3D004BD95F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 		741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpViewController.swift; sourceTree = "<group>"; };
 		7456F5101D7BACFC003CF997 /* Inquiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inquiry.swift; sourceTree = "<group>"; };
 		7456F5121D7BAD0E003CF997 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		74757B881D80EC7400C88302 /* UpTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpTabBarController.swift; sourceTree = "<group>"; };
 		7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesViewController.swift; sourceTree = "<group>"; };
 		7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
@@ -182,23 +184,16 @@
 			children = (
 				7404C0761D1F75DC004BD95F /* Up.entitlements */,
 				7404C0411D1F5F3D004BD95F /* AppDelegate.swift */,
-				7404C0431D1F5F3D004BD95F /* ViewController.swift */,
-				7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */,
-				74B182E21D779C5A00CC4873 /* ResponsesViewController.swift */,
-				7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */,
-				74B182E41D77A7D500CC4873 /* ResponseCollectionViewCell.swift */,
-				74B182E01D77980600CC4873 /* RequestsPageViewController.swift */,
+				746380271D84842800244950 /* Up View */,
+				746380261D84841300244950 /* Requests */,
 				7479CDA01D729F330005F3E2 /* DatabaseHelper.swift */,
 				741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */,
 				7404C0741D1F7148004BD95F /* UpNavigationController.swift */,
-				7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */,
+				74757B881D80EC7400C88302 /* UpTabBarController.swift */,
 				74C73BA41D6FCE5A00E011AD /* LogInViewController.swift */,
 				7479CDA21D7398F50005F3E2 /* SettingsViewController.swift */,
 				74C73BA61D6FDF3900E011AD /* Helpers.swift */,
-				7456F5121D7BAD0E003CF997 /* Response.swift */,
-				7456F5101D7BACFC003CF997 /* Inquiry.swift */,
-				74D9CB441D6D404B00AB48A6 /* Up.swift */,
-				74D9CB461D6E6DC600AB48A6 /* Friend.swift */,
+				746380281D84845E00244950 /* Models */,
 				74C73BA01D6FC2B300E011AD /* Constants.swift */,
 				7404C0451D1F5F3D004BD95F /* Main.storyboard */,
 				7404C04B1D1F5F3D004BD95F /* Assets.xcassets */,
@@ -225,6 +220,38 @@
 				7404C0661D1F5F3E004BD95F /* Info.plist */,
 			);
 			path = UpUITests;
+			sourceTree = "<group>";
+		};
+		746380261D84841300244950 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */,
+				74B182E21D779C5A00CC4873 /* ResponsesViewController.swift */,
+				7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */,
+				74B182E41D77A7D500CC4873 /* ResponseCollectionViewCell.swift */,
+				74B182E01D77980600CC4873 /* RequestsPageViewController.swift */,
+			);
+			name = Requests;
+			sourceTree = "<group>";
+		};
+		746380271D84842800244950 /* Up View */ = {
+			isa = PBXGroup;
+			children = (
+				7404C0431D1F5F3D004BD95F /* UpViewController.swift */,
+				7404C0721D1F6031004BD95F /* UpCollectionViewCell.swift */,
+			);
+			name = "Up View";
+			sourceTree = "<group>";
+		};
+		746380281D84845E00244950 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7456F5121D7BAD0E003CF997 /* Response.swift */,
+				7456F5101D7BACFC003CF997 /* Inquiry.swift */,
+				74D9CB441D6D404B00AB48A6 /* Up.swift */,
+				74D9CB461D6E6DC600AB48A6 /* Friend.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -626,7 +653,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7404C0751D1F7148004BD95F /* UpNavigationController.swift in Sources */,
-				7404C0441D1F5F3D004BD95F /* ViewController.swift in Sources */,
+				7404C0441D1F5F3D004BD95F /* UpViewController.swift in Sources */,
+				74757B891D80EC7400C88302 /* UpTabBarController.swift in Sources */,
 				74B182E51D77A7D500CC4873 /* ResponseCollectionViewCell.swift in Sources */,
 				74B182E11D77980600CC4873 /* RequestsPageViewController.swift in Sources */,
 				7456F5131D7BAD0E003CF997 /* Response.swift in Sources */,

@@ -8,6 +8,8 @@
 
 import UIKit
 
+@IBDesignable
+
 class UpCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -59,6 +61,17 @@ class UpCollectionViewCell: UICollectionViewCell {
         
         return true;
         
+    }
+    
+    override func drawRect(rect: CGRect) {
+
+        //// Oval Drawing
+        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 1, y: 1, width: rect.width - 2, height: rect.height - 2))
+        UIColor.whiteColor().setFill()
+        ovalPath.fill()
+        UpStyleKit.outlineColor.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
     }
 
     func wobble() {

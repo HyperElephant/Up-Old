@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 class ResponsesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
     let reuseIdentifier = "upCell"
@@ -23,8 +24,10 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        side = (self.view.frame.width / 2) - CGFloat(30)
+
+        self.responsesCollectionView?.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+
+        side = (self.view.frame.width / 2) - CGFloat(20)
         
         responsesCollectionView.delegate = self
         responsesCollectionView.dataSource = self
@@ -64,12 +67,12 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
         } else {
             cell.responseTitleLabel!.text = "Error"
         }
-        
+        /*
         cell.layer.backgroundColor = UIColor.whiteColor().CGColor
         cell.layer.borderColor = UIColor.grayColor().CGColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = side/2
-        
+        */
         return cell
     }
     

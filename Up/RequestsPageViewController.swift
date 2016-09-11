@@ -14,8 +14,19 @@ class RequestsPageViewController: UIPageViewController, UIPageViewControllerData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.delegate = self.delegate
         self.dataSource = self
+        
+        for subView in self.view.subviews {
+            if subView.isKindOfClass(UIPageControl) {
+                let pageControl = subView as! UIPageControl
+                pageControl.pageIndicatorTintColor = UpStyleKit.accentColor
+                pageControl.currentPageIndicatorTintColor = UIColor.redColor()
+            }
+        }
+        
+        
+        self.view.tintColor = UpStyleKit.accentColor
         self.view.backgroundColor = UIColor.whiteColor()
         
         if let firstViewController = orderedViewControllers.first {
