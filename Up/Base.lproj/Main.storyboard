@@ -171,18 +171,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSA-uY-Lla">
-                                                    <rect key="frame" x="8" y="80" width="46" height="30"/>
-                                                    <state key="normal" title="Yes">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSA-uY-Lla" customClass="UpButton" customModule="Up" customModuleProvider="target">
+                                                    <rect key="frame" x="90" y="90" width="42" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="42" id="b4j-8p-OWn"/>
+                                                        <constraint firstAttribute="height" constant="42" id="st2-Vl-fAh"/>
+                                                    </constraints>
+                                                    <state key="normal">
                                                         <color key="titleColor" red="0.36078431370000003" green="0.96078431369999995" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="yesButtonPressed:" destination="Ez1-zn-hFW" eventType="touchUpInside" id="i4i-Wi-Z9J"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNd-xv-ukb">
-                                                    <rect key="frame" x="105" y="81" width="46" height="30"/>
-                                                    <state key="normal" title="No">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNd-xv-ukb" customClass="DownButton" customModule="Up" customModuleProvider="target">
+                                                    <rect key="frame" x="35" y="90" width="42" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="42" id="jk4-1e-d47"/>
+                                                        <constraint firstAttribute="height" constant="42" id="yr5-X8-Y8I"/>
+                                                    </constraints>
+                                                    <state key="normal">
                                                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
@@ -198,6 +206,12 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottomMargin" secondItem="pSA-uY-Lla" secondAttribute="bottom" constant="20" id="0d3-Z2-zPp"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="HNd-xv-ukb" secondAttribute="bottom" constant="20" id="NdC-ao-uvk"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="pSA-uY-Lla" secondAttribute="trailing" constant="20" id="Vpd-FG-z3Y"/>
+                                            <constraint firstItem="HNd-xv-ukb" firstAttribute="leading" secondItem="Ez1-zn-hFW" secondAttribute="leadingMargin" constant="27" id="e9G-hv-WIB"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="titleLabel" destination="XRK-yH-3wH" id="p9w-Xq-Fk3"/>
                                         </connections>

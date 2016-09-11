@@ -22,6 +22,8 @@
 		7456F5111D7BACFC003CF997 /* Inquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5101D7BACFC003CF997 /* Inquiry.swift */; };
 		7456F5131D7BAD0E003CF997 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5121D7BAD0E003CF997 /* Response.swift */; };
 		7463802B1D85119000244950 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7463802A1D85119000244950 /* CheckmarkView.swift */; };
+		746380371D86000000244950 /* UpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746380361D86000000244950 /* UpButton.swift */; };
+		746380391D86001C00244950 /* DownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746380381D86001C00244950 /* DownButton.swift */; };
 		74757B891D80EC7400C88302 /* UpTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74757B881D80EC7400C88302 /* UpTabBarController.swift */; };
 		7479CD9D1D72548A0005F3E2 /* InquiriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */; };
 		7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */; };
@@ -86,6 +88,8 @@
 		7456F5101D7BACFC003CF997 /* Inquiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inquiry.swift; sourceTree = "<group>"; };
 		7456F5121D7BAD0E003CF997 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		7463802A1D85119000244950 /* CheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
+		746380361D86000000244950 /* UpButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpButton.swift; sourceTree = "<group>"; };
+		746380381D86001C00244950 /* DownButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownButton.swift; sourceTree = "<group>"; };
 		74757B881D80EC7400C88302 /* UpTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpTabBarController.swift; sourceTree = "<group>"; };
 		7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesViewController.swift; sourceTree = "<group>"; };
 		7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 			isa = PBXGroup;
 			children = (
 				7463802A1D85119000244950 /* CheckmarkView.swift */,
+				746380361D86000000244950 /* UpButton.swift */,
+				746380381D86001C00244950 /* DownButton.swift */,
 			);
 			name = "Misc. Views";
 			sourceTree = "<group>";
@@ -666,6 +672,7 @@
 				7404C0751D1F7148004BD95F /* UpNavigationController.swift in Sources */,
 				7404C0441D1F5F3D004BD95F /* UpViewController.swift in Sources */,
 				74757B891D80EC7400C88302 /* UpTabBarController.swift in Sources */,
+				746380391D86001C00244950 /* DownButton.swift in Sources */,
 				74B182E51D77A7D500CC4873 /* ResponseCollectionViewCell.swift in Sources */,
 				74B182E11D77980600CC4873 /* RequestsPageViewController.swift in Sources */,
 				7456F5131D7BAD0E003CF997 /* Response.swift in Sources */,
@@ -676,6 +683,7 @@
 				7404C04A1D1F5F3D004BD95F /* Up.xcdatamodeld in Sources */,
 				7404C0421D1F5F3D004BD95F /* AppDelegate.swift in Sources */,
 				7479CD9D1D72548A0005F3E2 /* InquiriesViewController.swift in Sources */,
+				746380371D86000000244950 /* UpButton.swift in Sources */,
 				7479CDA31D7398F50005F3E2 /* SettingsViewController.swift in Sources */,
 				741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */,
 				74D9CB471D6E6DC600AB48A6 /* Friend.swift in Sources */,
