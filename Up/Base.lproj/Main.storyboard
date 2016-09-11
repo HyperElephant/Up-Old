@@ -647,25 +647,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIR-M0-qPQ">
-                                <rect key="frame" x="20" y="72" width="55" height="30"/>
-                                <state key="normal" title="Log Out"/>
-                                <connections>
-                                    <action selector="logOutButtonPressed:" destination="0Ek-Ud-DvN" eventType="touchUpInside" id="yUy-MF-fE8"/>
-                                </connections>
-                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xp5-AB-YSu">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" id="CKM-pj-8uj">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CKM-pj-8uj" id="CoK-sY-uEg">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="CIR-M0-qPQ" secondAttribute="leading" id="2Ja-Gb-g9W"/>
-                            <constraint firstItem="CIR-M0-qPQ" firstAttribute="top" secondItem="ZT2-or-qbt" secondAttribute="bottom" constant="8" id="Bhb-vp-9qP"/>
+                            <constraint firstItem="Xp5-AB-YSu" firstAttribute="leading" secondItem="fOe-BN-DLg" secondAttribute="leadingMargin" constant="-20" id="BuK-a4-snc"/>
+                            <constraint firstItem="h8Q-vn-mKR" firstAttribute="top" secondItem="Xp5-AB-YSu" secondAttribute="bottom" constant="-49" id="Lja-oQ-WPF"/>
+                            <constraint firstItem="Xp5-AB-YSu" firstAttribute="centerX" secondItem="fOe-BN-DLg" secondAttribute="centerX" id="NTa-fT-wvq"/>
+                            <constraint firstItem="Xp5-AB-YSu" firstAttribute="top" secondItem="ZT2-or-qbt" secondAttribute="bottom" constant="-44" id="gEs-rs-5fg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Xp5-AB-YSu" secondAttribute="trailing" constant="-20" id="r0Q-AK-BQR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="mSt-bL-abr"/>
+                    <connections>
+                        <outlet property="settingsTableView" destination="Xp5-AB-YSu" id="4OK-AJ-IAb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pjs-yW-4tn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1876" y="1972"/>
+            <point key="canvasLocation" x="2079" y="1901"/>
         </scene>
     </scenes>
     <resources>

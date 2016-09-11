@@ -9,16 +9,20 @@
 import UIKit
 import Firebase
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBAction func logOutButtonPressed(sender: AnyObject) {
-        try! FIRAuth.auth()!.signOut()
-        print("logged out")
-        self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
+    @IBOutlet weak var settingsTableView: UITableView!
+    
+    let reuseIdentifier = "settingsCell"
+    var settings = ["Log Out"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        settingsTableView.delegate = self
+        settingsTableView.dataSource = self
+        
+        settingsTableView.tableFooterView = UIView(frame: CGRectZero)
 
         // Do any additional setup after loading the view.
     }
@@ -26,6 +30,39 @@ class SettingsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //Mark: TableView
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return settings.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        cell.textLabel?.text = settings[indexPath.row]
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch settings[indexPath.row]{
+            case "Log Out":
+            logOut()
+        default:
+            break
+        }
+    }
+    
+    // Mark miscellaneous functions
+    
+    func logOut(){
+        try! FIRAuth.auth()!.signOut()
+        self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
 

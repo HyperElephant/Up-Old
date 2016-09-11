@@ -58,6 +58,8 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.friendsTableView?.dataSource = self
         self.friendsTableView?.delegate = self
+        friendsTableView.tableFooterView = UIView(frame: CGRectZero)
+
         
         configureFriends()
         
