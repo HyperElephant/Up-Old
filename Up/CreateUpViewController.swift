@@ -9,17 +9,22 @@
 import UIKit
 import Firebase
 
-class CreateUpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CreateUpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var friendsTableView: UITableView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var friendsSearchBar: UISearchBar!
     
     var ref: FIRDatabaseReference!
     var friends: [FIRDataSnapshot]! = []
     var added: [Bool] = []
     private var _refHandle: FIRDatabaseHandle!
     var addedFriends: [Friend] = []
+    
+    var filtered = []
+    var searchActive : Bool = false
+    
     
     @IBAction func addButtonPressed(sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
@@ -42,7 +47,6 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,6 +64,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         self.friendsTableView?.delegate = self
         friendsTableView.tableFooterView = UIView(frame: CGRectZero)
 
+        friendsSearchBar.delegate = self
         
         configureFriends()
         
@@ -71,20 +76,35 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    //Mark: TableView
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(searchActive) {
+            return filtered.count
+        }
         return friends.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        let friend = Friend(snapshot: friends[indexPath.row])
         
-        cell.textLabel!.text = friend.username
+        var friendName = ""
+        
+        if(searchActive){
+            let friend = Friend(snapshot: filtered[indexPath.row] as! FIRDataSnapshot)
+            friendName = friend.username
+        } else {
+            let friend = Friend(snapshot: friends[indexPath.row])
+            friendName = friend.username
+        }
+        
+        cell.textLabel!.text = friendName
+
         return cell
     }
     
@@ -100,6 +120,39 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    
+    //Mark: Searchbar
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        filtered = friends.filter({ (snapshot) -> Bool in
+            let tmp: NSString = Friend(snapshot: snapshot).username
+            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            return range.location != NSNotFound
+        })
+        if(filtered.count == 0){
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.friendsTableView.reloadData()
+    }
     
     // MARK: - Navigation
 
