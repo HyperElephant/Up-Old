@@ -17,11 +17,16 @@ class RequestsPageViewController: UIPageViewController, UIPageViewControllerData
         self.delegate = self.delegate
         self.dataSource = self
         
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         for subView in self.view.subviews {
             if subView.isKindOfClass(UIPageControl) {
                 let pageControl = subView as! UIPageControl
                 pageControl.pageIndicatorTintColor = UpStyleKit.accentColor
                 pageControl.currentPageIndicatorTintColor = UIColor.redColor()
+                self.view.bringSubviewToFront(pageControl)
+            } else if subView is UIScrollView {
+                subView.frame = self.view.bounds
             }
         }
         

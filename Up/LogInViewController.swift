@@ -22,6 +22,19 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
+    @IBOutlet weak var emailCheckmark: CheckmarkView!
+    @IBOutlet weak var passwordCheckmark: CheckmarkView!
+    @IBOutlet weak var usernameCheckmark: CheckmarkView!
+    
+    
+    @IBAction func emailEntered(sender: AnyObject) {
+        if emailTextField.text!.containsString("@") {
+            emailCheckmark.hidden = false
+        } else {
+            emailCheckmark.hidden = true
+        }
+    }
+    
     @IBAction func signUpButtonPressed(sender: AnyObject) {
         if !signingUp{
             signingUp = true

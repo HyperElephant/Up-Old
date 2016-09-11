@@ -21,6 +21,7 @@
 		741A5ABB1D4ADD1C0003468D /* CreateUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */; };
 		7456F5111D7BACFC003CF997 /* Inquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5101D7BACFC003CF997 /* Inquiry.swift */; };
 		7456F5131D7BAD0E003CF997 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7456F5121D7BAD0E003CF997 /* Response.swift */; };
+		7463802B1D85119000244950 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7463802A1D85119000244950 /* CheckmarkView.swift */; };
 		74757B891D80EC7400C88302 /* UpTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74757B881D80EC7400C88302 /* UpTabBarController.swift */; };
 		7479CD9D1D72548A0005F3E2 /* InquiriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */; };
 		7479CD9F1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */; };
@@ -84,6 +85,7 @@
 		741A5ABA1D4ADD1C0003468D /* CreateUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUpViewController.swift; sourceTree = "<group>"; };
 		7456F5101D7BACFC003CF997 /* Inquiry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inquiry.swift; sourceTree = "<group>"; };
 		7456F5121D7BAD0E003CF997 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		7463802A1D85119000244950 /* CheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
 		74757B881D80EC7400C88302 /* UpTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpTabBarController.swift; sourceTree = "<group>"; };
 		7479CD9C1D72548A0005F3E2 /* InquiriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesViewController.swift; sourceTree = "<group>"; };
 		7479CD9E1D725AA50005F3E2 /* InquiriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		7404C0401D1F5F3D004BD95F /* Up */ = {
 			isa = PBXGroup;
 			children = (
+				746380291D85111F00244950 /* Misc. Views */,
 				7404C0761D1F75DC004BD95F /* Up.entitlements */,
 				7404C0411D1F5F3D004BD95F /* AppDelegate.swift */,
 				746380271D84842800244950 /* Up View */,
@@ -252,6 +255,14 @@
 				74D9CB461D6E6DC600AB48A6 /* Friend.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		746380291D85111F00244950 /* Misc. Views */ = {
+			isa = PBXGroup;
+			children = (
+				7463802A1D85119000244950 /* CheckmarkView.swift */,
+			);
+			name = "Misc. Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -659,6 +670,7 @@
 				74B182E11D77980600CC4873 /* RequestsPageViewController.swift in Sources */,
 				7456F5131D7BAD0E003CF997 /* Response.swift in Sources */,
 				74D9CB451D6D404B00AB48A6 /* Up.swift in Sources */,
+				7463802B1D85119000244950 /* CheckmarkView.swift in Sources */,
 				7404C0731D1F6031004BD95F /* UpCollectionViewCell.swift in Sources */,
 				74C73BA71D6FDF3900E011AD /* Helpers.swift in Sources */,
 				7404C04A1D1F5F3D004BD95F /* Up.xcdatamodeld in Sources */,

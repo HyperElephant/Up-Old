@@ -122,7 +122,7 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         if isWobbling {
             let key = ups[indexPath.row].key
             ref.child("ups").child(key).removeValue()
-            
+            removeUpRequests(key)
         }
         else {
             // handle tap events
@@ -163,7 +163,6 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
             self.upCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
         })
     }
-
     
     func getFriendFromData(friends: FIRDataSnapshot) -> [Friend]{
         var newFriends = [Friend]()
@@ -265,6 +264,21 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         }
         
         
+    }
+    
+    func removeUpRequests(key: String){
+        
+        self.ref.child(Constants.InquiryFields.inquiry).queryOrderedByChild(Constants.InquiryFields.upID).queryEqualToValue(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+            for item in snapshot.children {
+                self.ref.child(Constants.InquiryFields.inquiry).child(item.key).removeValue()
+            }
+        })
+        
+        self.ref.child(Constants.ResponseFields.response).queryOrderedByChild(Constants.ResponseFields.upID).queryEqualToValue(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+            for item in snapshot.children {
+                self.ref.child(Constants.ResponseFields.response).child(item.key).removeValue()
+            }
+        })
     }
     
 

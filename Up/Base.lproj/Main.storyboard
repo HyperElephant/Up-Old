@@ -450,6 +450,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZIt-GN-JlH">
+                                <rect key="frame" x="160" y="114" width="280" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="TIC-iI-9H0"/>
+                                    <constraint firstAttribute="height" constant="30" id="auh-B7-ug9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <connections>
+                                    <action selector="emailEntered:" destination="zc3-3m-miZ" eventType="editingDidEnd" id="xhx-T4-CV8"/>
+                                </connections>
+                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h8n-NS-kYU">
                                 <rect key="frame" x="160" y="151" width="280" height="30"/>
                                 <constraints>
@@ -501,15 +513,30 @@
                                     <action selector="logInButtonPressed:" destination="zc3-3m-miZ" eventType="touchUpInside" id="sPz-BE-0sU"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZIt-GN-JlH">
-                                <rect key="frame" x="160" y="114" width="280" height="30"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xv4-E6-4z2" customClass="CheckmarkView" customModule="Up" customModuleProvider="target">
+                                <rect key="frame" x="448" y="119" width="20" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="TIC-iI-9H0"/>
-                                    <constraint firstAttribute="height" constant="30" id="auh-B7-ug9"/>
+                                    <constraint firstAttribute="height" constant="20" id="eV1-hV-e3y"/>
+                                    <constraint firstAttribute="width" constant="20" id="g9d-jS-CcP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
-                            </textField>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZ5-UU-Xa0" customClass="CheckmarkView" customModule="Up" customModuleProvider="target">
+                                <rect key="frame" x="448" y="156" width="20" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="IcI-wR-HWH"/>
+                                    <constraint firstAttribute="width" constant="20" id="YF3-um-Zbn"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdO-cW-eaQ" customClass="CheckmarkView" customModule="Up" customModuleProvider="target">
+                                <rect key="frame" x="448" y="194" width="20" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Le5-Iu-SZv"/>
+                                    <constraint firstAttribute="width" constant="20" id="OEn-YR-rpe"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.36078431370000003" green="0.96078431369999995" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -518,21 +545,30 @@
                             <constraint firstItem="JkM-4q-Hhc" firstAttribute="top" secondItem="h8n-NS-kYU" secondAttribute="bottom" constant="8" id="3T5-dK-xg0"/>
                             <constraint firstItem="Vc7-9I-QmW" firstAttribute="top" secondItem="ZB1-2w-ZKX" secondAttribute="bottom" constant="8" id="BzG-v7-D53"/>
                             <constraint firstItem="h8n-NS-kYU" firstAttribute="centerX" secondItem="4wI-T6-LjN" secondAttribute="centerX" id="CP6-1z-JnY"/>
+                            <constraint firstItem="wZ5-UU-Xa0" firstAttribute="leading" secondItem="h8n-NS-kYU" secondAttribute="trailing" constant="8" id="IVu-Cw-Lkv"/>
                             <constraint firstItem="Vc7-9I-QmW" firstAttribute="centerX" secondItem="4wI-T6-LjN" secondAttribute="centerX" id="Qqz-gr-Zxe"/>
+                            <constraint firstItem="tdO-cW-eaQ" firstAttribute="leading" secondItem="JkM-4q-Hhc" secondAttribute="trailing" constant="8" id="UXH-Vw-zhO"/>
+                            <constraint firstItem="wZ5-UU-Xa0" firstAttribute="top" secondItem="xv4-E6-4z2" secondAttribute="bottom" constant="17" id="Vns-zs-W8x"/>
                             <constraint firstItem="ZB1-2w-ZKX" firstAttribute="centerX" secondItem="4wI-T6-LjN" secondAttribute="centerX" id="VzO-Kr-lrJ"/>
+                            <constraint firstItem="tdO-cW-eaQ" firstAttribute="top" secondItem="wZ5-UU-Xa0" secondAttribute="bottom" constant="18" id="XFa-u6-LTr"/>
+                            <constraint firstItem="xv4-E6-4z2" firstAttribute="leading" secondItem="ZIt-GN-JlH" secondAttribute="trailing" constant="8" id="bg9-6r-kdH"/>
                             <constraint firstItem="h8n-NS-kYU" firstAttribute="top" secondItem="ZIt-GN-JlH" secondAttribute="bottom" constant="7" id="c5S-sw-BxL"/>
                             <constraint firstItem="ZIt-GN-JlH" firstAttribute="top" secondItem="Vc7-9I-QmW" secondAttribute="bottom" constant="8" id="cCg-Lb-YYH"/>
                             <constraint firstItem="fKL-c1-hjQ" firstAttribute="centerX" secondItem="4wI-T6-LjN" secondAttribute="centerX" id="pCN-aE-waI"/>
                             <constraint firstItem="ZB1-2w-ZKX" firstAttribute="top" secondItem="bWz-0K-SjG" secondAttribute="bottom" constant="8" id="rfR-gg-O1s"/>
                             <constraint firstItem="fKL-c1-hjQ" firstAttribute="top" secondItem="JkM-4q-Hhc" secondAttribute="bottom" constant="20" id="thi-sq-7Z5"/>
+                            <constraint firstItem="xv4-E6-4z2" firstAttribute="top" secondItem="bWz-0K-SjG" secondAttribute="bottom" constant="99" id="tnk-Oz-7Ib"/>
                             <constraint firstItem="JkM-4q-Hhc" firstAttribute="centerX" secondItem="4wI-T6-LjN" secondAttribute="centerX" id="wOI-Mn-ayz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailCheckmark" destination="xv4-E6-4z2" id="gMr-u5-HVu"/>
                         <outlet property="emailTextField" destination="ZIt-GN-JlH" id="tbn-df-k0d"/>
                         <outlet property="logInButton" destination="fKL-c1-hjQ" id="ugA-Uf-h43"/>
+                        <outlet property="passwordCheckmark" destination="wZ5-UU-Xa0" id="Zoz-Uq-fCZ"/>
                         <outlet property="passwordTextField" destination="h8n-NS-kYU" id="lPD-fe-iQa"/>
                         <outlet property="signUpButton" destination="Vc7-9I-QmW" id="UsA-iD-51D"/>
+                        <outlet property="usernameCheckmark" destination="tdO-cW-eaQ" id="6h9-j5-M3k"/>
                         <outlet property="usernameTextField" destination="JkM-4q-Hhc" id="KU5-Uq-6HM"/>
                         <segue destination="jHX-i5-fSM" kind="showDetail" identifier="logInSegue" id="eEv-9i-HJ5"/>
                     </connections>
