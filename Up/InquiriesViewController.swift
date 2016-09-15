@@ -23,10 +23,8 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.inquiriesCollectionView?.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        self.inquiriesCollectionView?.contentInset = UIEdgeInsets(top: 64, left: 10, bottom: 0, right: 10)
 
-        
         side = (self.view.frame.width / 2) - CGFloat(20)
 
         inquiriesCollectionView.delegate = self
@@ -97,7 +95,6 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
             self.incoming.append(snapshot)
             self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
         })
-        
         self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
             let index = self.indexOfIncoming(snapshot)
             self.ups.removeAtIndex(index)

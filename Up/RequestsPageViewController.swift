@@ -8,38 +8,47 @@
 
 import UIKit
 
-class RequestsPageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     @IBOutlet weak var requestsNavigationBar: UINavigationItem!
+    var pageViewController : UIPageViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self.delegate
-        self.dataSource = self
-        
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-        for subView in self.view.subviews {
-            if subView.isKindOfClass(UIPageControl) {
-                let pageControl = subView as! UIPageControl
-                pageControl.pageIndicatorTintColor = UpStyleKit.accentColor
-                pageControl.currentPageIndicatorTintColor = UIColor.redColor()
-                self.view.bringSubviewToFront(pageControl)
-            } else if subView is UIScrollView {
-                subView.frame = self.view.bounds
-            }
-        }
-        
-        
+        pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+        pageViewController!.delegate = self
+        pageViewController!.dataSource = self
+
         self.view.tintColor = UpStyleKit.accentColor
-        self.view.backgroundColor = UIColor.whiteColor()
+        //self.view.backgroundColor = UIColor.whiteColor()
         
         if let firstViewController = orderedViewControllers.first {
-            setViewControllers([firstViewController],
+            pageViewController!.setViewControllers([firstViewController],
                                direction: .Forward,
                                animated: true,
                                completion: nil)
         }
+        
+        pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+        addChildViewController(pageViewController!)
+        view.addSubview(pageViewController!.view)
+        pageViewController!.didMoveToParentViewController(self)
+        
+        
+        for subView in pageViewController!.view.subviews {
+            if subView.isKindOfClass(UIPageControl) {
+                print("pagecontrol")
+                let pageControl = subView as! UIPageControl
+                print(pageControl)
+                pageControl.pageIndicatorTintColor = UpStyleKit.accentColor
+                pageControl.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
+                //pageViewController!.view.bringSubviewToFront(pageControl)
+                self.view.bringSubviewToFront(pageControl)
+            }
+        }
+        
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -101,7 +110,7 @@ class RequestsPageViewController: UIPageViewController, UIPageViewControllerData
     }
     
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        guard let firstViewController = viewControllers?.first,
+        guard let firstViewController = pageViewController.viewControllers?.first,
             firstViewControllerIndex = orderedViewControllers.indexOf(firstViewController) else {
                 return 0
         }
