@@ -92,15 +92,22 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        
         var friendName = ""
-        
+        print(indexPath.row)
         if(searchActive){
             let friend = Friend(snapshot: filtered[indexPath.row] as! FIRDataSnapshot)
             friendName = friend.username
         } else {
             let friend = Friend(snapshot: friends[indexPath.row])
             friendName = friend.username
+        }
+        
+         for friend in addedFriends {
+            if friend.username  == friendName{
+                cell.accessoryType = .Checkmark
+            } else {
+                cell.accessoryType = .None
+            }
         }
         
         cell.textLabel!.text = friendName
@@ -167,7 +174,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     func removeFriendFromList(unFriendData: FIRDataSnapshot){
         let unFriend = Friend(snapshot: unFriendData)
         for x in 0...(addedFriends.count - 1){
-            if addedFriends[x] == unFriend{
+            if addedFriends[x].username == unFriend.username{
                 let cell = friendsTableView.cellForRowAtIndexPath(NSIndexPath(forItem: x, inSection: 0))
                 cell!.selected = false
                 addedFriends.removeAtIndex(x)
@@ -189,6 +196,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         })
             
     }
+    
     
     /*
     func addTestFriends(){

@@ -326,9 +326,9 @@ public class UpStyleKit : NSObject {
         let backgroundColor = UIColor(red: 1.000, green: 0.463, blue: 0.894, alpha: 1.000)
 
         //// Bezier 2 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 38, 38)
-        CGContextRotateCTM(context, -180 * CGFloat(M_PI) / 180)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, 38, 38)
+        CGContextRotateCTM(context!, -180 * CGFloat(M_PI) / 180)
 
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPoint(x: 15.75, y: 14.5))
@@ -359,7 +359,7 @@ public class UpStyleKit : NSObject {
         backgroundColor.setFill()
         bezier2Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
 }
