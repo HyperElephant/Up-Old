@@ -90,6 +90,21 @@ class Up: NSObject {
         ref.updateChildValues(update)
     }
     
+    func edit(){
+        let key = self.id
+        let ref = FIRDatabase.database().reference().child("ups")
+        var users = [String: Bool]()
+        for friend in friends{
+            users[friend.username] = true
+        }
+        let editedUp = [Constants.UpFields.author: self.author,
+                     Constants.UpFields.title: self.title,
+                     Constants.UpFields.description: self.detail,
+                     Constants.UpFields.users: users]
+        let update = ["/\(key)": editedUp]
+        ref.updateChildValues(update)
+    }
+    
     func send(){
         let ref = FIRDatabase.database().reference()
         

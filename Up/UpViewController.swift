@@ -19,7 +19,8 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
     private var _refHandle: FIRDatabaseHandle!
-    private var isWobbling = false
+    private var userEditing = false
+    private var upToEdit: Up?
     var longPressGesture = UIGestureRecognizer()
     
     var tintView = UIView()
@@ -42,13 +43,13 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     @IBAction func editButtonPressed(sender: AnyObject) {
-        if isWobbling {
+        if userEditing {
             editButton.title = "Edit"
             for cell in self.upCollectionView.visibleCells() {
                 let cell = cell as! UpCollectionViewCell
                 cell.stopWobble()
             }
-            isWobbling = false;
+            userEditing = false;
         }
         else {
             editButton.title = "Done"
@@ -56,7 +57,7 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
                 let cell = cell as! UpCollectionViewCell
                 cell.wobble()
             }
-            isWobbling = true
+            userEditing = true
         }
         
     }
@@ -119,10 +120,14 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if isWobbling {
-            let key = ups[indexPath.row].key
-            ref.child("ups").child(key).removeValue()
-            removeUpRequests(key)
+        if userEditing {
+            upToEdit = Up(snapshot: ups[indexPath.row])
+            
+            tintView = UIView(frame: self.view.frame)
+            tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+            
+            self.parentViewController?.parentViewController?.view.addSubview(tintView)
+            performSegueWithIdentifier("addUpSegue", sender: self)
         }
         else {
             // handle tap events
@@ -281,6 +286,13 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         })
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (upToEdit != nil) {
+            let destination = segue.destinationViewController as! CreateUpViewController
+            destination.upToEdit = upToEdit
+        }
+        upToEdit = nil
+    }
 
 }
     

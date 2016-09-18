@@ -21,6 +21,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     var added: [Bool] = []
     private var _refHandle: FIRDatabaseHandle!
     var addedFriends: [Friend] = []
+    var upToEdit: Up?
     
     var filtered = []
     var searchActive : Bool = false
@@ -31,9 +32,19 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         if ((titleTextField.text != "") && (addedFriends.count > 0)) {
-            let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
-            newUp.upload()
-            performSegueWithIdentifier("unwindOnUpCreation", sender: self)
+            
+            if (upToEdit == nil) {
+                let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
+                newUp.upload()
+                performSegueWithIdentifier("unwindOnUpCreation", sender: self)
+            } else {
+                upToEdit!.title = titleTextField.text!
+                upToEdit!.detail = descriptionTextField.text!
+                upToEdit!.friends = addedFriends
+                upToEdit!.edit()
+                performSegueWithIdentifier("unwindOnUpCreation", sender: self)
+            }
+            
         }
         else if titleTextField.text == "" {
             showAlert("Up needs title")
@@ -69,6 +80,11 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         configureFriends()
         
         // Do any additional setup after loading the view.
+        
+        if upToEdit != nil {
+            titleTextField.text = upToEdit!.title
+            descriptionTextField.text = upToEdit!.detail
+        }
     }
 
     override func didReceiveMemoryWarning() {
