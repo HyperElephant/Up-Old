@@ -155,17 +155,28 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     func configureDatabase() {
         ref = FIRDatabase.database().reference()
         let username = FIRAuth.auth()?.currentUser?.displayName
+        
         // Listen for new messages in the Firebase database
+        
+        //On Up added to firebase
         _refHandle = self.ref.child(Constants.UpFields.ups).queryOrderedByChild(Constants.UpFields.author).queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
             self.ups.append(snapshot)
             self.upCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
         })
         
+        //On Up removed from firebase
         self.ref.child("ups").queryOrderedByChild("author").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
             let index = self.indexOfUp(snapshot)
-            print(index)
+            //print(index)
             self.ups.removeAtIndex(index)
             self.upCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+        })
+        
+        //On Up changed in firebase
+        self.ref.child("ups").queryOrderedByChild("author").queryEqualToValue(username).observeEventType(.ChildChanged, withBlock: { (snapshot) -> Void in
+            let index = self.indexOfUp(snapshot)
+            self.ups[index] = snapshot
+            self.upCollectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection:  0)])
         })
     }
     

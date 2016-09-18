@@ -44,7 +44,6 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
                 upToEdit!.edit()
                 performSegueWithIdentifier("unwindOnUpCreation", sender: self)
             }
-            
         }
         else if titleTextField.text == "" {
             showAlert("Up needs title")
@@ -55,7 +54,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         else {
             print("Error: Add checks failed")
         }
-        
+        upToEdit = nil
     }
     
     override func viewDidLoad() {
@@ -84,6 +83,9 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         if upToEdit != nil {
             titleTextField.text = upToEdit!.title
             descriptionTextField.text = upToEdit!.detail
+            for friend in upToEdit!.friends {
+                addedFriends.append(friend)
+            }
         }
     }
 
