@@ -111,7 +111,6 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         var friendName = ""
-        print(indexPath.row)
         if(searchActive){
             let friend = Friend(snapshot: filtered[indexPath.row] as! FIRDataSnapshot)
             friendName = friend.username
