@@ -18,9 +18,9 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
-    private var _refHandle: FIRDatabaseHandle!
-    private var userEditing = false
-    private var upToEdit: Up?
+    fileprivate var _refHandle: FIRDatabaseHandle!
+    fileprivate var userEditing = false
+    fileprivate var upToEdit: Up?
     var longPressGesture = UIGestureRecognizer()
     
     var tintView = UIView()
@@ -28,24 +28,24 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var upCollectionView: UICollectionView!
     
-    @IBAction func myUnwindAction(unwindSegue: UIStoryboardSegue){
+    @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue){
         tintView.removeFromSuperview()
         
     }
     
-    @IBAction func addButtonPressed(sender: AnyObject) {
+    @IBAction func addButtonPressed(_ sender: AnyObject) {
         
         tintView = UIView(frame: self.view.frame)
-        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        tintView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         
-        self.parentViewController?.parentViewController?.view.addSubview(tintView)
-        performSegueWithIdentifier("addUpSegue", sender: self)
+        self.parent?.parent?.view.addSubview(tintView)
+        performSegue(withIdentifier: "addUpSegue", sender: self)
     }
     
-    @IBAction func editButtonPressed(sender: AnyObject) {
+    @IBAction func editButtonPressed(_ sender: AnyObject) {
         if userEditing {
             editButton.title = "Edit"
-            for cell in self.upCollectionView.visibleCells() {
+            for cell in self.upCollectionView.visibleCells {
                 let cell = cell as! UpCollectionViewCell
                 cell.stopWobble()
             }
@@ -53,7 +53,7 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         }
         else {
             editButton.title = "Done"
-            for cell in self.upCollectionView.visibleCells() {
+            for cell in self.upCollectionView.visibleCells {
                 let cell = cell as! UpCollectionViewCell
                 cell.wobble()
             }
@@ -92,15 +92,15 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     // MARK: - UICollectionViewDataSource protocol
     
     // tell the collection view how many cells to make
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.ups.count
     }
     
     // make a cell for each cell index path
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UpCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UpCollectionViewCell
         let up = Up(snapshot: ups[indexPath.row])
         
         let friendString = makeFriendsString(up!.friends)
@@ -119,15 +119,15 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     
     // MARK: - UICollectionViewDelegate protocol
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if userEditing {
             upToEdit = Up(snapshot: ups[indexPath.row])
             
             tintView = UIView(frame: self.view.frame)
-            tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+            tintView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             
-            self.parentViewController?.parentViewController?.view.addSubview(tintView)
-            performSegueWithIdentifier("addUpSegue", sender: self)
+            self.parent?.parent?.view.addSubview(tintView)
+            performSegue(withIdentifier: "addUpSegue", sender: self)
         }
         else {
             // handle tap events
@@ -139,14 +139,14 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     }
     
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {        
-        return CGSizeMake(side, side);
+        return CGSize(width: side, height: side);
     }
     
-    func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        let up = ups.removeAtIndex(sourceIndexPath.item)
-        ups.insert(up, atIndex: destinationIndexPath.item)
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let up = ups.remove(at: sourceIndexPath.item)
+        ups.insert(up, at: destinationIndexPath.item)
     }
     
     
@@ -159,31 +159,31 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         // Listen for new messages in the Firebase database
         
         //On Up added to firebase
-        _refHandle = self.ref.child(Constants.UpFields.ups).queryOrderedByChild(Constants.UpFields.author).queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        _refHandle = self.ref.child(Constants.UpFields.ups).queryOrdered(byChild: Constants.UpFields.author).queryEqual(toValue: username).observe(.childAdded, with: { (snapshot) -> Void in
             self.ups.append(snapshot)
-            self.upCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
+            self.upCollectionView.insertItems(at: [IndexPath(row: self.ups.count-1, section: 0)])
         })
         
         //On Up removed from firebase
-        self.ref.child("ups").queryOrderedByChild("author").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+        self.ref.child("ups").queryOrdered(byChild: "author").queryEqual(toValue: username).observe(.childRemoved, with: { (snapshot) -> Void in
             let index = self.indexOfUp(snapshot)
             //print(index)
-            self.ups.removeAtIndex(index)
-            self.upCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+            self.ups.remove(at: index)
+            self.upCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         })
         
         //On Up changed in firebase
-        self.ref.child("ups").queryOrderedByChild("author").queryEqualToValue(username).observeEventType(.ChildChanged, withBlock: { (snapshot) -> Void in
+        self.ref.child("ups").queryOrdered(byChild: "author").queryEqual(toValue: username).observe(.childChanged, with: { (snapshot) -> Void in
             let index = self.indexOfUp(snapshot)
             self.ups[index] = snapshot
-            self.upCollectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: index, inSection:  0)])
+            self.upCollectionView.reloadItems(at: [IndexPath(row: index, section:  0)])
         })
     }
     
-    func getFriendFromData(friends: FIRDataSnapshot) -> [Friend]{
+    func getFriendFromData(_ friends: FIRDataSnapshot) -> [Friend]{
         var newFriends = [Friend]()
         for child in friends.children{
-            let username = child.name! 
+            let username = (child as? AnyObject)?.name
             let newFriend = Friend(username: username)
             newFriends.append(newFriend)
         }
@@ -191,7 +191,7 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         return newFriends
     }
     
-    func makeFriendsString(friends: [Friend]) -> String {
+    func makeFriendsString(_ friends: [Friend]) -> String {
         var friendString = "With "
         
         if friends.count == 1 {
@@ -231,18 +231,18 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         return friendString
     }
     
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    func handleLongPress(_ gestureReconizer: UILongPressGestureRecognizer) {
         /*
         if gestureReconizer.state != UIGestureRecognizerState.Ended {
             return
         }
  */
         
-        let p = gestureReconizer.locationInView(self.upCollectionView)
-        let indexPath = self.upCollectionView.indexPathForItemAtPoint(p)
+        let p = gestureReconizer.location(in: self.upCollectionView)
+        let indexPath = self.upCollectionView.indexPathForItem(at: p)
         
         if let index = indexPath {
-            let cell = self.upCollectionView.cellForItemAtIndexPath(index) as! UpCollectionViewCell
+            let cell = self.upCollectionView.cellForItem(at: index) as! UpCollectionViewCell
             // do stuff with your cell, for example print the indexPath
             cell.wobble()
             print(index.row, terminator: "")
@@ -251,7 +251,7 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         }
     }
     
-    func indexOfUp(snapshot: FIRDataSnapshot) -> Int {
+    func indexOfUp(_ snapshot: FIRDataSnapshot) -> Int {
         var index = 0
         for  item in self.ups {
             if (snapshot.key == item.key) {
@@ -262,18 +262,18 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         return -1
     }
     
-    func handleLongGesture(gesture: UILongPressGestureRecognizer) {
+    func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
         
         switch(gesture.state) {
             
-        case UIGestureRecognizerState.Began:
-            guard let selectedIndexPath = self.upCollectionView.indexPathForItemAtPoint(gesture.locationInView(self.upCollectionView)) else {
+        case UIGestureRecognizerState.began:
+            guard let selectedIndexPath = self.upCollectionView.indexPathForItem(at: gesture.location(in: self.upCollectionView)) else {
                 break
             }
-            upCollectionView.beginInteractiveMovementForItemAtIndexPath(selectedIndexPath)
-        case UIGestureRecognizerState.Changed:
-        upCollectionView.updateInteractiveMovementTargetPosition(gesture.locationInView(gesture.view!))
-        case UIGestureRecognizerState.Ended:
+            upCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case UIGestureRecognizerState.changed:
+        upCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case UIGestureRecognizerState.ended:
             upCollectionView.endInteractiveMovement()
         default:
             upCollectionView.cancelInteractiveMovement()
@@ -282,24 +282,24 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
         
     }
     
-    func removeUpRequests(key: String){
+    func removeUpRequests(_ key: String){
         
-        self.ref.child(Constants.InquiryFields.inquiry).queryOrderedByChild(Constants.InquiryFields.upID).queryEqualToValue(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+        self.ref.child(Constants.InquiryFields.inquiry).queryOrdered(byChild: Constants.InquiryFields.upID).queryEqual(toValue: key).observeSingleEvent(of: .value, with: { (snapshot) -> Void in
             for item in snapshot.children {
-                self.ref.child(Constants.InquiryFields.inquiry).child(item.key).removeValue()
+                self.ref.child(Constants.InquiryFields.inquiry).child((item as AnyObject).key).removeValue()
             }
         })
         
-        self.ref.child(Constants.ResponseFields.response).queryOrderedByChild(Constants.ResponseFields.upID).queryEqualToValue(key).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+        self.ref.child(Constants.ResponseFields.response).queryOrdered(byChild: Constants.ResponseFields.upID).queryEqual(toValue: key).observeSingleEvent(of: .value, with: { (snapshot) -> Void in
             for item in snapshot.children {
-                self.ref.child(Constants.ResponseFields.response).child(item.key).removeValue()
+                self.ref.child(Constants.ResponseFields.response).child((item as AnyObject).key).removeValue()
             }
         })
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (upToEdit != nil) {
-            let destination = segue.destinationViewController as! CreateUpViewController
+            let destination = segue.destination as! CreateUpViewController
             destination.upToEdit = upToEdit
         }
         upToEdit = nil

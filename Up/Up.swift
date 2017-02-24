@@ -33,43 +33,34 @@ class Up: NSObject {
         var newDetail = ""
         var newFriends = [Friend]()
         
+        if let snapshotValue = snapshot.value as? NSDictionary{
+            if let snapAuthor = snapshotValue[Constants.UpFields.author] as? String{
+                newAuthor = snapAuthor
+            }
+            if let snapTitle = snapshotValue[Constants.UpFields.title] as? String{
+                newTitle = snapTitle
+            }
+            if let snapDetail = snapshotValue[Constants.UpFields.description] as? String{
+                newDetail = snapDetail
+            }
+            if let snapFriendsData = snapshotValue[Constants.UpFields.users] as? [String:Bool]{
+                for (key, _) in snapFriendsData{
+                    newFriends.append(Friend(username: key))
+                }
+            }
+        }
+        
         if let snapID = snapshot.key as String! {
             newID = snapID
         }else {
             return nil
         }
-        
-        if let snapAuthor = snapshot.value![Constants.UpFields.author] as! String! {
-            newAuthor = snapAuthor
-        } else {
-            return nil
-        }
-        
-        if let snapTitle = snapshot.value![Constants.UpFields.title] as! String! {
-            newTitle = snapTitle
-        } else {
-            return nil
-        }
-        
-        if let snapDetail = snapshot.value![Constants.UpFields.description] as! String! {
-            newDetail = snapDetail
-        } else {
-            return nil
-        }
 
-        if let newFriendsData = snapshot.value![Constants.UpFields.users] as! [String:Bool]! {
-        
-            for (key, _) in newFriendsData{
-                newFriends.append(Friend(username: key))
-            }
-            
-        }
-        
         self.init(id: newID, author: newAuthor, title:newTitle, detail:newDetail, friends: newFriends)
         
     }
     
-    func add(friend:Friend, ID:String){
+    func add(_ friend:Friend, ID:String){
         
         self.friends.append(friend)
     }
@@ -85,7 +76,7 @@ class Up: NSObject {
         let newUp = [Constants.UpFields.author: self.author,
                     Constants.UpFields.title: self.title,
                     Constants.UpFields.description: self.detail,
-                    Constants.UpFields.users: users]
+                    Constants.UpFields.users: users] as [String : Any]
         let update = ["/ups/\(key)": newUp]
         ref.updateChildValues(update)
     }
@@ -100,7 +91,7 @@ class Up: NSObject {
         let editedUp = [Constants.UpFields.author: self.author,
                      Constants.UpFields.title: self.title,
                      Constants.UpFields.description: self.detail,
-                     Constants.UpFields.users: users]
+                     Constants.UpFields.users: users] as [String : Any]
         let update = ["/\(key)": editedUp]
         ref.updateChildValues(update)
     }
@@ -112,7 +103,7 @@ class Up: NSObject {
             let key = ref.child(Constants.InquiryFields.inquiry).childByAutoId().key
             let newSent = [Constants.InquiryFields.recipientName: friend.username,
                            Constants.InquiryFields.upID: self.id,
-                           Constants.InquiryFields.seen: false]
+                           Constants.InquiryFields.seen: false] as [String : Any]
             let update = ["/inquiry/\(key)": newSent]
             ref.updateChildValues(update)
         

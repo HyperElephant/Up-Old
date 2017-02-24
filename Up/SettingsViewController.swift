@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
         
-        settingsTableView.tableFooterView = UIView(frame: CGRectZero)
+        settingsTableView.tableFooterView = UIView(frame: CGRect.zero)
 
         // Do any additional setup after loading the view.
     }
@@ -34,22 +34,22 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Mark: TableView
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         cell.textLabel?.text = settings[indexPath.row]
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch settings[indexPath.row]{
             case "Log Out":
             logOut()
@@ -62,7 +62,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func logOut(){
         try! FIRAuth.auth()!.signOut()
-        self.view.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
 

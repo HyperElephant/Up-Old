@@ -27,38 +27,38 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var usernameCheckmark: CheckmarkView!
     
     
-    @IBAction func emailEntered(sender: AnyObject) {
-        if emailTextField.text!.containsString("@") {
-            emailCheckmark.hidden = false
+    @IBAction func emailEntered(_ sender: AnyObject) {
+        if emailTextField.text!.contains("@") {
+            emailCheckmark.isHidden = false
         } else {
-            emailCheckmark.hidden = true
+            emailCheckmark.isHidden = true
         }
     }
     
-    @IBAction func signUpButtonPressed(sender: AnyObject) {
+    @IBAction func signUpButtonPressed(_ sender: AnyObject) {
         if !signingUp{
             signingUp = true
-            usernameTextField.hidden = false
-            logInButton.setTitle("Sign Up", forState: UIControlState.Normal)
-            signUpButton.setTitle("Already registered? Log in!", forState: UIControlState.Normal)
+            usernameTextField.isHidden = false
+            logInButton.setTitle("Sign Up", for: UIControlState())
+            signUpButton.setTitle("Already registered? Log in!", for: UIControlState())
         } else {
             signingUp = false
-            usernameTextField.hidden = true
-            logInButton.setTitle("Log In", forState: UIControlState.Normal)
-            signUpButton.setTitle("Not registered? Sign up!", forState: UIControlState.Normal)
+            usernameTextField.isHidden = true
+            logInButton.setTitle("Log In", for: UIControlState())
+            signUpButton.setTitle("Not registered? Sign up!", for: UIControlState())
         }
         
     }
     
-    @IBAction func logInButtonPressed(sender: AnyObject) {
+    @IBAction func logInButtonPressed(_ sender: AnyObject) {
 
         if signingUp{
             if let email = self.emailTextField.text,
-                password = self.passwordTextField.text,
-                username = self.usernameTextField.text{
+                let password = self.passwordTextField.text,
+                let username = self.usernameTextField.text{
                 // [START headless_email_auth]
                 
-                FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in
+                FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in
                     // [START_EXCLUDE]
                     if let error = error {
                         self.showAlert(error.localizedDescription)
@@ -66,14 +66,14 @@ class LogInViewController: UIViewController {
                     }
                     let changeRequest = user?.profileChangeRequest()
                     changeRequest?.displayName = username
-                    changeRequest?.commitChangesWithCompletion({ error in
+                    changeRequest?.commitChanges(completion: { error in
                         if let error = error {
                             self.showAlert(error.localizedDescription)
                         }
                     })
                     self.addNewUser(email, username: username, uid: (user?.uid)!)
                     
-                    self.performSegueWithIdentifier("logInSegue", sender: nil)
+                    self.performSegue(withIdentifier: "logInSegue", sender: nil)
                     // [END_EXCLUDE]
                 }
                 // [END headless_email_auth]
@@ -83,16 +83,16 @@ class LogInViewController: UIViewController {
 
             
         }else{
-            if let email = self.emailTextField.text, password = self.passwordTextField.text {
+            if let email = self.emailTextField.text, let password = self.passwordTextField.text {
                     // [START headless_email_auth]
                 
-                    FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in
+                    FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
                         // [START_EXCLUDE]
                             if let error = error {
                                 self.showAlert(error.localizedDescription)
                                 return
                             }
-                            self.performSegueWithIdentifier("logInSegue", sender: nil)
+                            self.performSegue(withIdentifier: "logInSegue", sender: nil)
                         // [END_EXCLUDE]
                     }
                     // [END headless_email_auth]
@@ -106,12 +106,12 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usernameTextField.hidden = true
+        usernameTextField.isHidden = true
         
         ref = FIRDatabase.database().reference()
-        FIRAuth.auth()?.addAuthStateDidChangeListener { auth, user in
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if user != nil {
-                self.performSegueWithIdentifier("logInSegue", sender: nil)
+                self.performSegue(withIdentifier: "logInSegue", sender: nil)
             } else {
                 // No user is signed in.
             }
@@ -125,7 +125,7 @@ class LogInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func addNewUser(email: String, username: String, uid: String){
+    func addNewUser(_ email: String, username: String, uid: String){
         let ref = FIRDatabase.database().reference()
         let key = ref.child("users").childByAutoId().key
         let newUser = ["email": email,

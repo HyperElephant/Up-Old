@@ -37,24 +37,23 @@ class Inquiry: NSObject {
             return nil
         }
         
-        if let snapRecipientName = snapshot.value![Constants.InquiryFields.recipientName] as! String! {
+        if let snapRecipientName = (snapshot.value as? NSDictionary)?[Constants.InquiryFields.recipientName] as! String? {
             newRecipientName = snapRecipientName
         } else {
             return nil
         }
         
-        if let snapUpID = snapshot.value![Constants.InquiryFields.upID] as! String! {
+        if let snapUpID = (snapshot.value as? NSDictionary)?[Constants.InquiryFields.upID] as! String? {
             newUpID = snapUpID
         } else {
             return nil
         }
         
-        if let snapSeen = snapshot.value![Constants.InquiryFields.seen] as! Bool! {
+        if let snapSeen = (snapshot.value as? NSDictionary)?[Constants.InquiryFields.seen] as! Bool? {
             newSeen = snapSeen
         } else {
             return nil
         }
-        
         
         self.init(id: newID, recipientName: newRecipientName, upID:newUpID, seen:newSeen)
         
@@ -62,3 +61,4 @@ class Inquiry: NSObject {
 
 
 }
+

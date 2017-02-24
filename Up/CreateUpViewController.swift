@@ -19,15 +19,15 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     var ref: FIRDatabaseReference!
     var friends: [FIRDataSnapshot]! = []
     var added: [Bool] = []
-    private var _refHandle: FIRDatabaseHandle!
+    fileprivate var _refHandle: FIRDatabaseHandle!
     var addedFriends: [Friend] = []
     var upToEdit: Up?
     
-    var filtered = []
+    var filtered = [FIRDataSnapshot]()
     var searchActive : Bool = false
     
     
-    @IBAction func addButtonPressed(sender: AnyObject) {
+    @IBAction func addButtonPressed(_ sender: AnyObject) {
         let user = FIRAuth.auth()?.currentUser
         
         
@@ -36,13 +36,13 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
             if (upToEdit == nil) {
                 let newUp = Up(id: "", author: (user?.displayName!)!, title: titleTextField.text!, detail: descriptionTextField.text!, friends: addedFriends)
                 newUp.upload()
-                performSegueWithIdentifier("unwindOnUpCreation", sender: self)
+                performSegue(withIdentifier: "unwindOnUpCreation", sender: self)
             } else {
                 upToEdit!.title = titleTextField.text!
                 upToEdit!.detail = descriptionTextField.text!
                 upToEdit!.friends = addedFriends
                 upToEdit!.edit()
-                performSegueWithIdentifier("unwindOnUpCreation", sender: self)
+                performSegue(withIdentifier: "unwindOnUpCreation", sender: self)
             }
         }
         else if titleTextField.text == "" {
@@ -62,17 +62,17 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.view.tintColor = UpStyleKit.accentColor
         
-        self.view.backgroundColor = .clearColor()
-        let newFrame = CGRectMake(20, 20, self.view.frame.width - 40, self.view.frame.height - 40)
+        self.view.backgroundColor = .clear
+        let newFrame = CGRect(x: 20, y: 20, width: self.view.frame.width - 40, height: self.view.frame.height - 40)
         let backgroundView = UIView(frame: newFrame)
-        backgroundView.backgroundColor = UIColor.whiteColor()
+        backgroundView.backgroundColor = UIColor.white
         backgroundView.layer.cornerRadius = 5
         self.view.addSubview(backgroundView)
-        self.view.sendSubviewToBack(backgroundView)
+        self.view.sendSubview(toBack: backgroundView)
         
         self.friendsTableView?.dataSource = self
         self.friendsTableView?.delegate = self
-        friendsTableView.tableFooterView = UIView(frame: CGRectZero)
+        friendsTableView.tableFooterView = UIView(frame: CGRect.zero)
 
         friendsSearchBar.delegate = self
         
@@ -96,23 +96,23 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Mark: TableView
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(searchActive) {
             return filtered.count
         }
         return friends.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var friendName = ""
         if(searchActive){
-            let friend = Friend(snapshot: filtered[indexPath.row] as! FIRDataSnapshot)
+            let friend = Friend(snapshot: filtered[indexPath.row])
             friendName = friend.username
         } else {
             let friend = Friend(snapshot: friends[indexPath.row])
@@ -121,9 +121,9 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         
          for friend in addedFriends {
             if friend.username  == friendName{
-                cell.accessoryType = .Checkmark
+                cell.accessoryType = .checkmark
             } else {
-                cell.accessoryType = .None
+                cell.accessoryType = .none
             }
         }
         
@@ -132,14 +132,14 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-            if cell.accessoryType == .Checkmark {
-                cell.accessoryType = .None
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
                 removeFriendFromList(friends[indexPath.row])
             } else {
-                cell.accessoryType = .Checkmark
-                addedFriends.append(Friend(snapshot: friends[indexPath.row]))
+                cell.accessoryType = .checkmark
+                addedFriends.append(Friend(username: friends[indexPath.row]))
             }
         }
     }
@@ -147,27 +147,27 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Mark: Searchbar
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true;
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchActive = false;
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false;
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false;
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         filtered = friends.filter({ (snapshot) -> Bool in
-            let tmp: NSString = Friend(snapshot: snapshot).username
-            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            let tmp: NSString = Friend(snapshot: snapshot).username as NSString
+            let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
             return range.location != NSNotFound
         })
         if(filtered.count == 0){
@@ -181,20 +181,20 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         //let dest = segue.destinationViewController as! ViewController
         //dest.ups.append(addedUp)
     }
     
-    func removeFriendFromList(unFriendData: FIRDataSnapshot){
+    func removeFriendFromList(_ unFriendData: FIRDataSnapshot){
         let unFriend = Friend(snapshot: unFriendData)
         for x in 0...(addedFriends.count - 1){
             if addedFriends[x].username == unFriend.username{
-                let cell = friendsTableView.cellForRowAtIndexPath(NSIndexPath(forItem: x, inSection: 0))
-                cell!.selected = false
-                addedFriends.removeAtIndex(x)
+                let cell = friendsTableView.cellForRow(at: IndexPath(item: x, section: 0))
+                cell!.isSelected = false
+                addedFriends.remove(at: x)
             }
         }
     }
@@ -205,10 +205,10 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
         let username = FIRAuth.auth()?.currentUser?.displayName
 
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
-            if (snapshot.value![Constants.FriendFields.username] as! String!) != username {
+        _refHandle = self.ref.child("users").observe(.childAdded, with: { (snapshot) -> Void in
+            if ((snapshot.value as? NSDictionary)?[Constants.FriendFields.username] as! String!) != username {
                 self.friends.append(snapshot)
-                self.friendsTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.friends.count-1, inSection: 0)], withRowAnimation: .Automatic)
+                self.friendsTableView.insertRows(at: [IndexPath(row: self.friends.count-1, section: 0)], with: .automatic)
             }
         })
             

@@ -43,31 +43,31 @@ class Response: NSObject {
             return nil
         }
         
-        if let snapAuthorName = snapshot.value![Constants.ResponseFields.authorName] as! String! {
+        if let snapAuthorName = (snapshot.value as! NSDictionary?)?[Constants.ResponseFields.authorName] as! String! {
             newAuthorName = snapAuthorName
         } else {
             return nil
         }
         
-        if let snapResponderName = snapshot.value![Constants.ResponseFields.responderName] as! String! {
+        if let snapResponderName = (snapshot.value as! NSDictionary?)?[Constants.ResponseFields.responderName] as! String! {
             newResponderName = snapResponderName
         } else {
             return nil
         }
         
-        if let snapUpID = snapshot.value![Constants.ResponseFields.upID] as! String! {
+        if let snapUpID = (snapshot.value as! NSDictionary?)?[Constants.ResponseFields.upID] as! String! {
             newUpID = snapUpID
         } else {
             return nil
         }
         
-        if let snapSeen = snapshot.value![Constants.ResponseFields.seen] as! Bool! {
+        if let snapSeen = (snapshot.value as! NSDictionary?)?[Constants.ResponseFields.seen] as! Bool! {
             newSeen = snapSeen
         } else {
             return nil
         }
         
-        if let snapIsUp = snapshot.value![Constants.ResponseFields.isUp] as! Bool! {
+        if let snapIsUp = (snapshot.value as! NSDictionary?)?[Constants.ResponseFields.isUp] as! Bool! {
             newIsUp = snapIsUp
         } else {
             return nil

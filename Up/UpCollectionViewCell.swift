@@ -32,17 +32,17 @@ class UpCollectionViewCell: UICollectionViewCell {
         // create the bezier path
         let ovalPath = UIBezierPath()
         
-        ovalPath.addArcWithCenter(CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)),
-            radius: CGRectGetWidth(ovalRect) / 2,
+        ovalPath.addArc(withCenter: CGPoint(x: self.frame.midX, y: self.frame.midY),
+            radius: ovalRect.width / 2,
             startAngle: ovalStartAngle,
             endAngle: ovalEndAngle, clockwise: true)
         
         // create an object that represents how the curve
         // should be presented on the screen
         let progressLine = CAShapeLayer()
-        progressLine.path = ovalPath.CGPath
-        progressLine.strokeColor = UIColor(red: 178/255, green: 47/255, blue: 152/255, alpha: 0.5).CGColor
-        progressLine.fillColor = UIColor.clearColor().CGColor
+        progressLine.path = ovalPath.cgPath
+        progressLine.strokeColor = UIColor(red: 178/255, green: 47/255, blue: 152/255, alpha: 0.5).cgColor
+        progressLine.fillColor = UIColor.clear.cgColor
         progressLine.lineWidth = 30.0
         progressLine.lineCap = kCALineCapRound
         
@@ -57,17 +57,17 @@ class UpCollectionViewCell: UICollectionViewCell {
         animateStrokeEnd.toValue = 1.0
         
         // add the animation
-        progressLine.addAnimation(animateStrokeEnd, forKey: "Send Buffer")
+        progressLine.add(animateStrokeEnd, forKey: "Send Buffer")
         
         return true;
         
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
 
         //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 1, y: 1, width: rect.width - 2, height: rect.height - 2))
-        UIColor.whiteColor().setFill()
+        let ovalPath = UIBezierPath(ovalIn: CGRect(x: 1, y: 1, width: rect.width - 2, height: rect.height - 2))
+        UIColor.white.setFill()
         ovalPath.fill()
         UpStyleKit.outlineColor.setStroke()
         ovalPath.lineWidth = 1
@@ -78,14 +78,14 @@ class UpCollectionViewCell: UICollectionViewCell {
                 
         let leftOrRight: CGFloat = (count % 2 == 0 ? 1 : -1)
         let rightOrLeft: CGFloat = (count % 2 == 0 ? -1 : 1)
-        let leftWobble: CGAffineTransform = CGAffineTransformMakeRotation(degreesToRadians(animationRotateDegres * leftOrRight))
-        let rightWobble: CGAffineTransform = CGAffineTransformMakeRotation(degreesToRadians(animationRotateDegres * rightOrLeft))
-        let moveTransform: CGAffineTransform = CGAffineTransformTranslate(leftWobble, -animationTranslateX, -animationTranslateY)
-        let conCatTransform: CGAffineTransform = CGAffineTransformConcat(leftWobble, moveTransform)
+        let leftWobble: CGAffineTransform = CGAffineTransform(rotationAngle: degreesToRadians(animationRotateDegres * leftOrRight))
+        let rightWobble: CGAffineTransform = CGAffineTransform(rotationAngle: degreesToRadians(animationRotateDegres * rightOrLeft))
+        let moveTransform: CGAffineTransform = leftWobble.translatedBy(x: -animationTranslateX, y: -animationTranslateY)
+        let conCatTransform: CGAffineTransform = leftWobble.concatenating(moveTransform)
         
         transform = rightWobble // starting point
         
-        UIView.animateWithDuration(0.1, delay: 0.08, options: [.AllowUserInteraction, .Repeat, .Autoreverse], animations: { () -> Void in
+        UIView.animate(withDuration: 0.1, delay: 0.08, options: [.allowUserInteraction, .repeat, .autoreverse], animations: { () -> Void in
             self.transform = conCatTransform
             }, completion: nil)
     }
@@ -94,7 +94,7 @@ class UpCollectionViewCell: UICollectionViewCell {
         self.layer.removeAllAnimations();
     }
     
-    func degreesToRadians(x: CGFloat) -> CGFloat {
+    func degreesToRadians(_ x: CGFloat) -> CGFloat {
         return CGFloat(M_PI) * x / 180.0
     }
     

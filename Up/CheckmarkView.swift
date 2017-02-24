@@ -12,7 +12,7 @@ import UIKit
 
 class CheckmarkView: UIView {
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         UpStyleKit.drawCheckmark()
     }
  

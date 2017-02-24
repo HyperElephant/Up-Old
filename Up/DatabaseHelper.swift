@@ -12,15 +12,15 @@ import Firebase
 class DatabaseHelper: NSObject {
     
     var ref: FIRDatabaseReference!
-    private var _refHandle: FIRDatabaseHandle!
+    fileprivate var _refHandle: FIRDatabaseHandle!
     
     
     //DOES NOT WORK
-    func getUpSnapshot(upID: String) -> FIRDataSnapshot? {
+    func getUpSnapshot(_ upID: String) -> FIRDataSnapshot? {
         print(upID)
         var data = FIRDataSnapshot()
         ref = FIRDatabase.database().reference().child("ups")
-        ref.child(upID).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        ref.child(upID).observeSingleEvent(of: .value, with: { (snapshot) in
             data = snapshot
             print("Snapshot: ", snapshot)
             print("Data In: ", data)
@@ -31,7 +31,7 @@ class DatabaseHelper: NSObject {
     
     
     //Does work
-    func indexOfSnapshot(snapshot: FIRDataSnapshot, list: [FIRDataSnapshot]) -> Int {
+    func indexOfSnapshot(_ snapshot: FIRDataSnapshot, list: [FIRDataSnapshot]) -> Int {
         var index = 0
         for  item in list {
             if (snapshot.key == item.key) {

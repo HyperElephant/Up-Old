@@ -14,6 +14,7 @@ pod 'Firebase/Messaging'
   target 'UpTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Firebase'
   end
 
   target 'UpUITests' do

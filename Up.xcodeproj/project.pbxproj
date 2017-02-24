@@ -278,6 +278,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7404C0691D1F5F3E004BD95F /* Build configuration list for PBXNativeTarget "Up" */;
 			buildPhases = (
+				2F5450BA71A7B6F350C90747 /* [CP] Check Pods Manifest.lock */,
 				6CB98DE8D0BD57082FE48EB8 /* [CP] Check Pods Manifest.lock */,
 				CB249EDE69C13E42F297337A /* [CP] Check Pods Manifest.lock */,
 				421CEECF570AB1ACA1112346 /* [CP] Check Pods Manifest.lock */,
@@ -302,6 +303,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7404C06C1D1F5F3E004BD95F /* Build configuration list for PBXNativeTarget "UpTests" */;
 			buildPhases = (
+				D974D87C0AEA52CAE32D7D8B /* [CP] Check Pods Manifest.lock */,
 				EB8F71775080E2F18614C078 /* [CP] Check Pods Manifest.lock */,
 				CA2EC716BEA0562191203EF2 /* [CP] Check Pods Manifest.lock */,
 				0658BDF215DDB691ED83B6B5 /* [CP] Check Pods Manifest.lock */,
@@ -327,6 +329,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7404C06F1D1F5F3E004BD95F /* Build configuration list for PBXNativeTarget "UpUITests" */;
 			buildPhases = (
+				20119D128ECCD59FBD573041 /* [CP] Check Pods Manifest.lock */,
 				6C73791B7696C61132B48C3B /* [CP] Check Pods Manifest.lock */,
 				ED0768B8258261FF707F1985 /* [CP] Check Pods Manifest.lock */,
 				6C140C353DC271232246D113 /* [CP] Check Pods Manifest.lock */,
@@ -335,6 +338,7 @@
 				7404C05E1D1F5F3E004BD95F /* Resources */,
 				C1BB0A3FB2BA5BB70FA204E1 /* [CP] Copy Pods Resources */,
 				D277ABA2CC87FACFE1CB1D22 /* 📦 Copy Pods Resources */,
+				3C90B07EBDD26E2B309405B0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -360,7 +364,7 @@
 					7404C03D1D1F5F3D004BD95F = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = J7826XAREP;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.iCloud = {
@@ -370,12 +374,12 @@
 					};
 					7404C0541D1F5F3E004BD95F = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						TestTargetID = 7404C03D1D1F5F3D004BD95F;
 					};
 					7404C05F1D1F5F3E004BD95F = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						TestTargetID = 7404C03D1D1F5F3D004BD95F;
 					};
 				};
@@ -474,6 +478,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Up/Pods-Up-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		20119D128ECCD59FBD573041 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		26967121A8EE30FFEE962524 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -489,6 +508,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Up/Pods-Up-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2F5450BA71A7B6F350C90747 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		2FF0FB373A4DE537B8E0CB02 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,6 +536,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Up/Pods-Up-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C90B07EBDD26E2B309405B0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UpUITests/Pods-UpUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		421CEECF570AB1ACA1112346 /* [CP] Check Pods Manifest.lock */ = {
@@ -652,6 +701,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UpUITests/Pods-UpUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D974D87C0AEA52CAE32D7D8B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E020E3B18C3C9CE50C327E88 /* 📦 Embed Pods Frameworks */ = {
@@ -968,7 +1032,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.Up;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1052,7 +1116,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.Up;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1065,7 +1129,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.UpTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Up.app/Up";
 			};
 			name = Debug;
@@ -1079,7 +1143,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.UpTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Up.app/Up";
 			};
 			name = Release;
@@ -1092,7 +1156,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.UpUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Up;
 				USES_XCTRUNNER = YES;
 			};
@@ -1106,7 +1170,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HyperElephant.UpUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Up;
 				USES_XCTRUNNER = YES;
 			};

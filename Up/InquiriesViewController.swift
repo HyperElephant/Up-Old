@@ -17,7 +17,7 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     var side = CGFloat(0)
     var ref: FIRDatabaseReference!
-    private var _refHandle: FIRDatabaseHandle!
+    fileprivate var _refHandle: FIRDatabaseHandle!
     
     @IBOutlet weak var inquiriesCollectionView: UICollectionView!
 
@@ -42,17 +42,17 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: - UICollectionViewDataSource protocol
     
     // tell the collection view how many cells to make
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.ups.count
     }
     
     // make a cell for each cell index path
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! InquiriesCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! InquiriesCollectionViewCell
         
-        if let up = Up(snapshot: ups[indexPath.row]), inquiry = Inquiry(snapshot: incoming[indexPath.row]) {
+        if let up = Up(snapshot: ups[indexPath.row]), let inquiry = Inquiry(snapshot: incoming[indexPath.row]) {
             cell.key = inquiry.id
             cell.upID = up.id 
             cell.upAuthor = up.author
@@ -74,15 +74,15 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     // MARK: - UICollectionViewDelegate protocol
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         
     }
     
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize
     {
-        return CGSizeMake(side, side);
+        return CGSize(width: side, height: side);
     }
     
     
@@ -91,28 +91,28 @@ class InquiriesViewController: UIViewController, UICollectionViewDataSource, UIC
         ref = FIRDatabase.database().reference()
         let username = FIRAuth.auth()?.currentUser?.displayName
         // Listen for new messages in the Firebase database
-        _refHandle = self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildAdded, withBlock: { (snapshot) -> Void in
+        _refHandle = self.ref.child("inquiry").queryOrdered(byChild: "recipientName").queryEqual(toValue: username).observe(.childAdded, with: { (snapshot) -> Void in
             self.incoming.append(snapshot)
-            self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
+            self.configureUpsDatabase((snapshot.value as? NSDictionary)?[Constants.InquiryFields.upID] as! String!)
         })
-        self.ref.child("inquiry").queryOrderedByChild("recipientName").queryEqualToValue(username).observeEventType(.ChildRemoved, withBlock: { (snapshot) -> Void in
+        self.ref.child("inquiry").queryOrdered(byChild: "recipientName").queryEqual(toValue: username).observe(.childRemoved, with: { (snapshot) -> Void in
             let index = self.indexOfIncoming(snapshot)
-            self.ups.removeAtIndex(index)
-            self.incoming.removeAtIndex(index)
+            self.ups.remove(at: index)
+            self.incoming.remove(at: index)
             //self.configureUpsDatabase(snapshot.value![Constants.InquiryFields.upID] as! String!)
-            self.inquiriesCollectionView.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)])
+            self.inquiriesCollectionView.deleteItems(at: [IndexPath(row: index, section: 0)])
         })
     }
     
-    func configureUpsDatabase(upID: String) {
+    func configureUpsDatabase(_ upID: String) {
         ref = FIRDatabase.database().reference().child("ups")
-        ref.child(upID).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        ref.child(upID).observeSingleEvent(of: .value, with: { (snapshot) in
             self.ups.append(snapshot)
-            self.inquiriesCollectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.ups.count-1, inSection: 0)])
+            self.inquiriesCollectionView.insertItems(at: [IndexPath(row: self.ups.count-1, section: 0)])
         })
     }
 
-    func indexOfIncoming(snapshot: FIRDataSnapshot) -> Int {
+    func indexOfIncoming(_ snapshot: FIRDataSnapshot) -> Int {
         var index = 0
         for  item in self.incoming {
             if (snapshot.key == item.key) {

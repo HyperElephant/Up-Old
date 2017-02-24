@@ -15,7 +15,7 @@ class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController!.delegate = self
         pageViewController!.dataSource = self
 
@@ -24,26 +24,26 @@ class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate
         
         if let firstViewController = orderedViewControllers.first {
             pageViewController!.setViewControllers([firstViewController],
-                               direction: .Forward,
+                               direction: .forward,
                                animated: true,
                                completion: nil)
         }
         
-        pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+        pageViewController!.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height);
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
-        pageViewController!.didMoveToParentViewController(self)
+        pageViewController!.didMove(toParentViewController: self)
         
         
         for subView in pageViewController!.view.subviews {
-            if subView.isKindOfClass(UIPageControl) {
+            if subView.isKind(of: UIPageControl.self) {
                 print("pagecontrol")
                 let pageControl = subView as! UIPageControl
                 print(pageControl)
                 pageControl.pageIndicatorTintColor = UpStyleKit.accentColor
                 pageControl.frame = CGRect(x: 100, y: 100, width: 100, height: 100)
                 //pageViewController!.view.bringSubviewToFront(pageControl)
-                self.view.bringSubviewToFront(pageControl)
+                self.view.bringSubview(toFront: pageControl)
             }
         }
         
@@ -53,14 +53,14 @@ class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate
         // Do any additional setup after loading the view.
     }
     
-    private(set) lazy var orderedViewControllers: [UIViewController] = {
+    fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
         return [self.newViewController("inquiriesViewControllerID") as! InquiriesViewController,
                 self.newViewController("responsesViewControllerID") as! ResponsesViewController]
     }()
     
-    private func newViewController(ID: String) -> UIViewController {
+    fileprivate func newViewController(_ ID: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil) .
-            instantiateViewControllerWithIdentifier("\(ID)")
+            instantiateViewController(withIdentifier: "\(ID)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,8 +68,8 @@ class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
             return nil
         }
         
@@ -86,8 +86,8 @@ class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate
         return orderedViewControllers[previousIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
             return nil
         }
         
@@ -105,13 +105,13 @@ class RequestsPageViewController: UIViewController, UIPageViewControllerDelegate
         return orderedViewControllers[nextIndex]
     }
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return orderedViewControllers.count
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         guard let firstViewController = pageViewController.viewControllers?.first,
-            firstViewControllerIndex = orderedViewControllers.indexOf(firstViewController) else {
+            let firstViewControllerIndex = orderedViewControllers.index(of: firstViewController) else {
                 return 0
         }
         

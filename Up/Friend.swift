@@ -19,9 +19,9 @@ class Friend: NSObject {
     
     convenience init(snapshot:FIRDataSnapshot!) {
         //print("Snapshot", snapshot)
-        let newUsername = snapshot.value![Constants.FriendFields.username] as! String!
+        let newUsername = (snapshot.value as? NSDictionary)?[Constants.FriendFields.username] as! String!
         
-        self.init(username: newUsername)
+        self.init(username: newUsername!)
         
     }
 }
