@@ -96,7 +96,9 @@ class ResponsesViewController: UIViewController, UICollectionViewDataSource, UIC
         // Listen for new messages in the Firebase database
         _refHandle = self.ref.child(Constants.ResponseFields.response).queryOrdered(byChild: Constants.ResponseFields.authorName).queryEqual(toValue: username).observe(.childAdded, with: { (snapshot) -> Void in
             self.responses.append(snapshot)
-            self.configureUpsDatabase(((snapshot.value as? NSDictionary)?[Constants.ResponseFields.upID] as! String?)!)
+            if let snapshotValue = snapshot.value as? NSDictionary{
+                self.configureUpsDatabase(snapshotValue[Constants.ResponseFields.upID] as! String)
+            }
         })
         
         self.ref.child(Constants.ResponseFields.response).queryOrdered(byChild: Constants.ResponseFields.authorName).queryEqual(toValue: username).observe(.childRemoved, with: { (snapshot) -> Void in

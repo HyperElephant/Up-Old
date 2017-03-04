@@ -139,7 +139,7 @@ class CreateUpViewController: UIViewController, UITableViewDelegate, UITableView
                 removeFriendFromList(friends[indexPath.row])
             } else {
                 cell.accessoryType = .checkmark
-                addedFriends.append(Friend(username: friends[indexPath.row]))
+                addedFriends.append(Friend(snapshot: friends[indexPath.row]))
             }
         }
     }

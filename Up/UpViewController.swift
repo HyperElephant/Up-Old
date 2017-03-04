@@ -183,8 +183,7 @@ class UpViewController: UIViewController, UICollectionViewDataSource, UICollecti
     func getFriendFromData(_ friends: FIRDataSnapshot) -> [Friend]{
         var newFriends = [Friend]()
         for child in friends.children{
-            let username = (child as? AnyObject)?.name
-            let newFriend = Friend(username: username)
+            let newFriend = Friend(snapshot: child as? FIRDataSnapshot)
             newFriends.append(newFriend)
         }
         
